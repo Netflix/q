@@ -16,30 +16,30 @@ To set up the google spreadsheets dataset, follow these steps:
 
 1. Create a new google app https://console.developers.google.com
 The app name goes into this property:
-`com.netflix.search.query.testing.googleAppName=CHANGE-ME
+`com.netflix.search.query.testing.googleAppName=CHANGE-ME`
 
 2. Create a new google email service account https://console.developers.google.com
 The email address goes into this property:
-`com.netflix.search.query.testing.serviceAccountEmail=CHANGE-ME@appspot.gserviceaccount.com
+`com.netflix.search.query.testing.serviceAccountEmail=CHANGE-ME@appspot.gserviceaccount.com`
 
 3. Download p12 public key and specify its location in these properties:
-`com.netflix.search.query.testing.p12KeyFileName=CHANGE-ME.p12
-`com.netflix.search.query.testing.googleSheetsKeyDir=data/g_sheets/
+`com.netflix.search.query.testing.p12KeyFileName=CHANGE-ME.p12`
+`com.netflix.search.query.testing.googleSheetsKeyDir=data/g_sheets/`
 
 4. Create a new google spreadsheet for the data input, add the created above account to it with VIEW access.
 Specify the name of your new spreadsheet in this property:
-`com.netflix.search.query.testing.inputQueriesSheet=query-testing-framework-input
+`com.netflix.search.query.testing.inputQueriesSheet=query-testing-framework-input`
 
 5. Copy this sheet as an example of the data input into your new spreadsheet: 
 https://docs.google.com/spreadsheets/d/10c9zEo4cBWL_rJAFEqNbpu1vpcTkAwubOOZZAYpRzGE/edit?usp=sharing
 
 6. Create two more spreadsheets for the results summary and details. Assign your created email to these spreadsheets with EDIT access.
 Specify the names in these properties:
-`com.netflix.search.query.testing.sumReportSheet=query-testing-framework-results-sum
-`com.netflix.search.query.testing.detailReportSheet=query-testing-framework-results-details
+`com.netflix.search.query.testing.sumReportSheet=query-testing-framework-results-sum`
+`com.netflix.search.query.testing.detailReportSheet=query-testing-framework-results-details`
 
 7. The document type explicit field has to be maintained for search filtering.  The field name can be set by this property, it needs to exist in the configuration of the search engine:
-`com.netflix.search.query.testing.docTypeFieldName=query-testing-type
+`com.netflix.search.query.testing.docTypeFieldName=query-testing-type`
 
 
 DATA MAINTENANCE
@@ -52,13 +52,13 @@ BUILDING
 -----------
 
 Query Testing Framework is built via Gradle (http://www.gradle.org). To build from the command line:
- `./gradlew build copyLibs
+ `./gradlew build copyLibs`
 
 RUNNING 
 -----------
 
 Run:
-`java -cp .:build/libs/*:lib/* com.netflix.search.query.QueryTests
+`java -cp .:build/libs/*:lib/* com.netflix.search.query.QueryTests`
 
 ARTIFACTS
 -----------
@@ -70,7 +70,7 @@ DEFAULT PROPERTIES OVERRIDING:
 -----------
 
 Override the default properties by adding this to command line:
-`-Darchaius.configurationSource.additionalUrls=file:///data/config-LOCAL_PROPERTIES.properties
+`-Darchaius.configurationSource.additionalUrls=file:///data/config-LOCAL_PROPERTIES.properties`
 
 
 AUTHOR
