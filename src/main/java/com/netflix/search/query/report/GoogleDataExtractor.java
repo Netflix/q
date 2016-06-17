@@ -10,6 +10,9 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 import com.netflix.search.query.Properties;
+import com.netflix.search.query.input.TitleWithQueries;
+import com.netflix.search.query.report.detail.DetailReport;
+import com.netflix.search.query.report.summary.SummaryReport;
 
 public class GoogleDataExtractor {
 

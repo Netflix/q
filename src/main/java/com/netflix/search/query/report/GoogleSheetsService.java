@@ -39,6 +39,12 @@ import com.google.gdata.data.spreadsheet.SpreadsheetFeed;
 import com.google.gdata.data.spreadsheet.WorksheetEntry;
 import com.google.gdata.util.ServiceException;
 import com.netflix.search.query.Properties;
+import com.netflix.search.query.input.TitleWithQueries;
+import com.netflix.search.query.report.detail.DetailReport;
+import com.netflix.search.query.report.detail.DetailReportItem;
+import com.netflix.search.query.report.summary.SummaryReport;
+import com.netflix.search.query.report.summary.SummaryReportItem;
+import com.netflix.search.query.utils.DateUtil;
 
 class GoogleSheetsService {
 

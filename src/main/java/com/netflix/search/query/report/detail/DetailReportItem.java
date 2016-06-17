@@ -1,6 +1,9 @@
-package com.netflix.search.query.report;
+package com.netflix.search.query.report.detail;
 
 import java.util.Map;
+
+import com.netflix.search.query.report.ReportItem;
+import com.netflix.search.query.report.ResultType;
 
 public class DetailReportItem extends ReportItem {
 
@@ -23,7 +26,7 @@ public class DetailReportItem extends ReportItem {
     }
 
     @Override
-    void appendKeyFromNamedValues(String headerValue, String value)
+	protected void appendKeyFromNamedValues(String headerValue, String value)
     {
         if (headerValue.equals("name"))
             key = value;

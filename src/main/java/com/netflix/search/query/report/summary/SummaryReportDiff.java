@@ -1,6 +1,8 @@
-package com.netflix.search.query.report;
+package com.netflix.search.query.report.summary;
 
 import java.util.List;
+
+import com.netflix.search.query.report.ReportItem;
 
 public class SummaryReportDiff extends SummaryReport {
 

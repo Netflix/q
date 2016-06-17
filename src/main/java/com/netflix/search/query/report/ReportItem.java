@@ -7,7 +7,7 @@ import com.google.common.base.Joiner;
 import com.netflix.search.query.Properties;
 
 public abstract class ReportItem {
-    protected Map<String, String>  namedValues= Maps.newLinkedHashMap();
+    public Map<String, String>  namedValues= Maps.newLinkedHashMap();
     protected String key = null;
 
     public Map<String, String> getNamedValues()
@@ -24,8 +24,8 @@ public abstract class ReportItem {
         super();
     }
 
-    abstract String getKeyFromNamedValues();
-    abstract void appendKeyFromNamedValues(String headerValue, String value);
+    protected abstract String getKeyFromNamedValues();
+    protected abstract void appendKeyFromNamedValues(String headerValue, String value);
 
     public void setValue(String headerValue, String value)
     {

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.netflix.search.query.Properties;
+import com.netflix.search.query.utils.StringUtils;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -71,7 +72,7 @@ public abstract class BaseIndexer {
     protected Map<String, Object> createDoc(String id, String english, String local, String altTitle, List<String> languages)
     {
         Map<String, Object> doc = new HashMap<String, Object>();
-        doc.put(Properties.idField.get(), (id + "_" + testName).replaceAll("\\.|\\ ", "_"));
+        doc.put(Properties.idField.get(), StringUtils.createIdUsingTestName(id, testName));
         
         for(String requiredField:Properties.requiredNumericFields.get())
         	doc.put(requiredField, 1);
@@ -184,7 +185,8 @@ public abstract class BaseIndexer {
         String lineString = null;
         while ((lineString = reader.readLine()) != null) {
 			String[] line = lineString.split(Properties.inputDelimiter.get());
-			titleIdToName.put(line[0], line[2]);
+			String id = line[0];
+			titleIdToName.put(StringUtils.createIdUsingTestName(id, testName), line[2]);
         }
         reader.close();
         is.close();

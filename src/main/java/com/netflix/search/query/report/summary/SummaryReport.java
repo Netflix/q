@@ -1,4 +1,4 @@
-package com.netflix.search.query.report;
+package com.netflix.search.query.report.summary;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
+import com.netflix.search.query.report.Report;
+import com.netflix.search.query.report.ReportItem;
+import com.netflix.search.query.report.ResultType;
 
 public class SummaryReport extends Report {
     
@@ -35,7 +38,7 @@ public class SummaryReport extends Report {
     }
     
     @Override
-    Report newReport(List<ReportItem> items)
+	protected Report newReport(List<ReportItem> items)
     {
         return new SummaryReportDiff(items);
     }

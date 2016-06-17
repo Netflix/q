@@ -1,4 +1,4 @@
-package com.netflix.search.query.report;
+package com.netflix.search.query.report.detail;
 
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -8,6 +8,9 @@ import java.util.Set;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Sets;
+import com.netflix.search.query.report.Report;
+import com.netflix.search.query.report.ReportItem;
+import com.netflix.search.query.report.ResultType;
 
 public class DetailReport extends Report {
     private static final String SEPARATOR = "~~~";
@@ -35,7 +38,7 @@ public class DetailReport extends Report {
     }
     
     @Override
-    Report newReport(List<ReportItem> items)
+	protected Report newReport(List<ReportItem> items)
     {
         return new DetailReportDiff(items);
     }

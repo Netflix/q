@@ -18,12 +18,12 @@ import com.netflix.search.query.engine.es.ElasticsearchIndexer;
 import com.netflix.search.query.engine.es.ElasticsearchSearcher;
 import com.netflix.search.query.engine.solr.SolrIndexer;
 import com.netflix.search.query.engine.solr.SolrSearcher;
-import com.netflix.search.query.report.DetailReport;
+import com.netflix.search.query.input.Queries;
 import com.netflix.search.query.report.GoogleDataExtractor;
-import com.netflix.search.query.report.Queries;
 import com.netflix.search.query.report.Report;
 import com.netflix.search.query.report.ResultType;
-import com.netflix.search.query.report.SummaryReport;
+import com.netflix.search.query.report.detail.DetailReport;
+import com.netflix.search.query.report.summary.SummaryReport;
 
 public class QueryTests {
 

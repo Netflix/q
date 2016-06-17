@@ -1,4 +1,4 @@
-package com.netflix.search.query.report;
+package com.netflix.search.query.input;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +11,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.netflix.search.query.Properties;
+import com.netflix.search.query.utils.StringUtils;
 
 public class TitleWithQueries {
 
@@ -37,7 +38,7 @@ public class TitleWithQueries {
 
     public String getId()
     {
-		return (id + "_" + sheetId).replaceAll("\\.|\\ ", "_");
+		return  StringUtils.createIdUsingTestName(id, sheetId);
     }
 
     public String getTitleEn()

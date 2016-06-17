@@ -13,6 +13,7 @@ import com.google.api.client.util.Lists;
 import com.google.api.client.util.Maps;
 import com.google.common.base.Joiner;
 import com.netflix.search.query.Properties;
+import com.netflix.search.query.utils.DateUtil;
 
 public abstract class Report {
     private static final String ENCODING = "UTF-8";
@@ -61,13 +62,13 @@ public abstract class Report {
         this.items = items;
     }
 
-    abstract String[] getHeader();
+    protected abstract String[] getHeader();
 
-    abstract String getReportName();
+    protected abstract String getReportName();
 
-    abstract ReportItem getDiffForReportItem(ReportItem previousItem, ReportItem currentItem);
+    protected abstract ReportItem getDiffForReportItem(ReportItem previousItem, ReportItem currentItem);
 
-    abstract Report newReport(List<ReportItem> items);
+    protected abstract Report newReport(List<ReportItem> items);
 
     public Report createReportDiffs(Report previous)
     {

@@ -1,10 +1,11 @@
-package com.netflix.search.query.report;
+package com.netflix.search.query.input;
 
 import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.netflix.search.query.report.GoogleDataExtractor;
 
 public class Queries {
     private Map<String, Set<String>> queryToIdMap = Maps.newHashMap();
