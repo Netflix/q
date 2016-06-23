@@ -14,11 +14,12 @@ import com.google.api.client.util.Maps;
 import com.google.common.base.Joiner;
 import com.netflix.search.query.Properties;
 import com.netflix.search.query.utils.DateUtil;
+import com.netflix.search.query.utils.HeaderUtils;
 
 public abstract class Report {
     private static final String ENCODING = "UTF-8";
 
-	protected List<ReportItem> items = Lists.newArrayList();
+    private List<ReportItem> items = Lists.newArrayList();
 
     private Date date;
     private DateUtil dateUtil = new DateUtil();
@@ -62,9 +63,9 @@ public abstract class Report {
         this.items = items;
     }
 
-    protected abstract String[] getHeader();
-
     protected abstract String getReportName();
+
+    public abstract ReportType getReportType();
 
     protected abstract ReportItem getDiffForReportItem(ReportItem previousItem, ReportItem currentItem);
 
@@ -112,7 +113,7 @@ public abstract class Report {
 
     public void saveToLocalDisk() throws Throwable
     {
-        String header = getHeaderForFlatFilePrint(getHeader());
+        String header = getHeaderForFlatFilePrint(HeaderUtils.getHeader(getReportType()));
         printReportToLocalDisk(Properties.dataDir.get() + getReportName(), header, items);
     }
 

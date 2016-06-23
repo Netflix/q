@@ -19,24 +19,86 @@ import com.netflix.search.query.engine.es.ElasticsearchSearcher;
 import com.netflix.search.query.engine.solr.SolrIndexer;
 import com.netflix.search.query.engine.solr.SolrSearcher;
 import com.netflix.search.query.input.Queries;
-import com.netflix.search.query.report.GoogleDataExtractor;
 import com.netflix.search.query.report.Report;
 import com.netflix.search.query.report.ResultType;
 import com.netflix.search.query.report.detail.DetailReport;
+import com.netflix.search.query.report.google.GoogleDataExtractor;
 import com.netflix.search.query.report.summary.SummaryReport;
 
 public class QueryTests {
 
     private static final String MAP_VALUE_DELIMITER = "\\|";
 	private static final String SHEET_TAB_NAME_DELIMITER = "-";
+	
 	private BaseIndexer indexer = null;
     private BaseSearcher searcher = null;
     private Map<String, Map<String, Set<String>>> queries = Maps.newLinkedHashMap();
-    private GoogleDataExtractor googleDataExtractor = new GoogleDataExtractor();
-    private DetailReport detailReport = new DetailReport();
-    private SummaryReport summaryReport = new SummaryReport();
+    private GoogleDataExtractor googleDataExtractor;
+    private DetailReport detailReport;
+    private SummaryReport summaryReport;
     
-    public static void main(String[] args) throws Throwable
+    public BaseIndexer getIndexer()
+	{
+		return indexer;
+	}
+
+	public void setIndexer(BaseIndexer indexer)
+	{
+		this.indexer = indexer;
+	}
+
+	public Map<String, Map<String, Set<String>>> getQueries()
+	{
+		return queries;
+	}
+
+	public void setQueries(Map<String, Map<String, Set<String>>> queries)
+	{
+		this.queries = queries;
+	}
+
+	public GoogleDataExtractor getGoogleDataExtractor()
+	{
+		if (googleDataExtractor == null)
+			googleDataExtractor = new GoogleDataExtractor();
+		return googleDataExtractor;
+	}
+
+	public void setGoogleDataExtractor(GoogleDataExtractor googleDataExtractor)
+	{
+		this.googleDataExtractor = googleDataExtractor;
+	}
+
+	public DetailReport getDetailReport()
+	{
+		if (detailReport == null)
+			detailReport = new DetailReport();
+		return detailReport;
+	}
+
+	public void setDetailReport(DetailReport detailReport)
+	{
+		this.detailReport = detailReport;
+	}
+
+	public SummaryReport getSummaryReport()
+	{
+		if (summaryReport == null)
+			summaryReport = new SummaryReport();
+		return summaryReport;
+	}
+
+	public void setSummaryReport(SummaryReport summaryReport)
+	{
+		this.summaryReport = summaryReport;
+	}
+
+	public void setSearcher(BaseSearcher searcher)
+	{
+		this.searcher = searcher;
+	}
+
+	public static void main(String[] args) throws Throwable
     {
        new QueryTests().getDataRunTestsUpdateReports();
     }
@@ -44,6 +106,10 @@ public class QueryTests {
     protected void getDataRunTestsUpdateReports() throws IOException, Throwable, FileNotFoundException, UnsupportedEncodingException
     {
         long start = System.currentTimeMillis();
+        googleDataExtractor = getGoogleDataExtractor();
+        detailReport = getDetailReport();
+        summaryReport = getSummaryReport();
+
         populateAllQueriesFromGoogleSpreadsheets();
         runAllTests();
         Report previousSummaryReport = googleDataExtractor.getPreviousSummaryReport();
@@ -131,7 +197,7 @@ public class QueryTests {
 		}
 	}
 
-    protected void runTest(String testName, List<String> languages) throws Throwable
+    public void runTest(String testName, List<String> languages) throws Throwable
     {
         Map<String, Set<String>> queryToIds = queries.get(testName);
         Set<String> titlesTested = Sets.newHashSet();

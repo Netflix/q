@@ -1,4 +1,4 @@
-package com.netflix.search.query.report;
+package com.netflix.search.query.report.google;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,8 +11,10 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 import com.netflix.search.query.Properties;
 import com.netflix.search.query.input.TitleWithQueries;
+import com.netflix.search.query.report.Report;
 import com.netflix.search.query.report.detail.DetailReport;
 import com.netflix.search.query.report.summary.SummaryReport;
+import com.netflix.search.query.utils.HeaderUtils;
 
 public class GoogleDataExtractor {
 
@@ -46,7 +48,7 @@ public class GoogleDataExtractor {
         return previousSummaryReport;
     }
 
-    private void initExtractor() throws Throwable
+    public void initExtractor() throws Throwable
     {
         searchGoogleSheetsService = new GoogleSheetsService();
         for (String sheetId : Properties.validDataSetsId.get()) {
@@ -104,7 +106,7 @@ public class GoogleDataExtractor {
 
     public void publishReportToGoogleSpreadsheet(Report report) throws Throwable
     {
-        searchGoogleSheetsService.updateReport(report.reportNameForUpload(), report.getHeader(), report.items, (report instanceof DetailReport ? true : false));
+        searchGoogleSheetsService.updateReport(report.reportNameForUpload(), HeaderUtils.getHeader(report.getReportType()), report.getItems(), (report instanceof DetailReport ? true : false));
     }
     
 }

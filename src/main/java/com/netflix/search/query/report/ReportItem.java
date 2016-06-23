@@ -7,15 +7,25 @@ import com.google.common.base.Joiner;
 import com.netflix.search.query.Properties;
 
 public abstract class ReportItem {
-    public Map<String, String>  namedValues= Maps.newLinkedHashMap();
-    protected String key = null;
+    private Map<String, String>  namedValues= Maps.newLinkedHashMap();
+    private String key = null;
 
     public Map<String, String> getNamedValues()
     {
         return namedValues;
     }
 
-    public ReportItem(Map<String, String> namedValues) {
+    public String getKey()
+	{
+		return key;
+	}
+
+	public void setKey(String key)
+	{
+		this.key = key;
+	}
+
+	public ReportItem(Map<String, String> namedValues) {
         this.namedValues = namedValues;
         this.key = getKeyFromNamedValues();
     }

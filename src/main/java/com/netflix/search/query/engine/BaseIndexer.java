@@ -29,10 +29,10 @@ public abstract class BaseIndexer {
 
     public static final String ENCODING = "UTF-8";
     private static final int BUFFER_SIZE = 1 << 16; // 64K
-	Client client = Client.create();
+    private Client client = Client.create();
 
-    protected String inputFileName=null;
-    protected String testName=null;
+    private String inputFileName=null;
+    private String testName=null;
 
     public BaseIndexer(String inputFileName, String testName) {
         this.inputFileName = inputFileName;

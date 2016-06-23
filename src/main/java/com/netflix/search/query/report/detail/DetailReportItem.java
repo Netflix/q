@@ -9,12 +9,12 @@ public class DetailReportItem extends ReportItem {
 
     public DetailReportItem(String name, ResultType failure, String query, String expected, String actual) {
         super();
-        namedValues.put("name", name);
-        namedValues.put("failure", failure.toString());
-        namedValues.put("query", query);
-        namedValues.put("expected", expected);
-        namedValues.put("actual", actual);
-        key = name + "_" + failure.toString() + "_" + query;
+        setValue(DetailReportHeader.name.toString(), name);
+        setValue(DetailReportHeader.failure.toString(), failure.toString());
+        setValue(DetailReportHeader.query.toString(), query);
+        setValue(DetailReportHeader.expected.toString(), expected);
+        setValue(DetailReportHeader.actual.toString(), actual);
+        setKey(name + "_" + failure.toString() + "_" + query);
     }
 
     public DetailReportItem(Map<String, String> namedValues) {
@@ -28,24 +28,22 @@ public class DetailReportItem extends ReportItem {
     @Override
 	protected void appendKeyFromNamedValues(String headerValue, String value)
     {
-        if (headerValue.equals("name"))
-            key = value;
-        else if (headerValue.equals("failure"))
-            key += "_" + value;
-        else if (headerValue.equals("query"))
-            key += "_" + value;
+        if (headerValue.equals(DetailReportHeader.name.toString()))
+        	setKey(value);
+        else if (headerValue.equals(DetailReportHeader.failure.toString()) || headerValue.equals(DetailReportHeader.query.toString()))
+        	setKey(getKey() + "_" + value);
     }
 
     @Override
     protected String getKeyFromNamedValues()
     {
-        return namedValues.get("name") + "_" + namedValues.get("failure") + "_" + namedValues.get("query");
+        return getNamedValues().get(DetailReportHeader.name.toString()) + "_" + getNamedValues().get(DetailReportHeader.failure.toString()) + "_" + getNamedValues().get(DetailReportHeader.query.toString());
     }
 
     @Override
     public String toString()
     {
-        return namedValues.get("name") + "\t" + namedValues.get("failure") + "\t" + namedValues.get("query") + "\t" + (namedValues.get("expected")==null?"":namedValues.get("expected")) + "\t" + namedValues.get("actual");
+        return getNamedValues().get(DetailReportHeader.name.toString()) + "\t" + getNamedValues().get(DetailReportHeader.failure.toString()) + "\t" + getNamedValues().get(DetailReportHeader.query.toString()) + "\t" + (getNamedValues().get(DetailReportHeader.expected.toString())==null?"":getNamedValues().get(DetailReportHeader.expected.toString())) + "\t" + getNamedValues().get(DetailReportHeader.actual.toString());
     }
 
     @Override
@@ -58,10 +56,10 @@ public class DetailReportItem extends ReportItem {
         if (getClass() != obj.getClass())
             return false;
         DetailReportItem other = (DetailReportItem) obj;
-        if (key == null) {
-            if (other.key != null)
+        if (getKey() == null) {
+            if (other.getKey() != null)
                 return false;
-        } else if (!key.equals(other.key))
+        } else if (!getKey().equals(other.getKey()))
             return false;
         return true;
     }

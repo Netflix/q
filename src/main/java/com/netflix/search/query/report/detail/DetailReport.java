@@ -10,15 +10,18 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Sets;
 import com.netflix.search.query.report.Report;
 import com.netflix.search.query.report.ReportItem;
+import com.netflix.search.query.report.ReportType;
 import com.netflix.search.query.report.ResultType;
 
 public class DetailReport extends Report {
-    private static final String SEPARATOR = "~~~";
-	public static final String[] DETAIL_REPORT_HEADER = { "name", "failure", "query", "expected", "actual", "comments" };
+	public static final String NEW = "NEW";
+	public static final String NONE = "NONE";
+	public static final String FIXED = "FIXED";
+	private static final String SEPARATOR = "~~~";
 
     public DetailReport(List<ReportItem> items) {
         super();
-        this.items=items;
+        this.setItems(items);
     }
 
     public DetailReport() {
@@ -26,15 +29,15 @@ public class DetailReport extends Report {
     }
 
     @Override
-    protected String[] getHeader()
-    {
-        return DETAIL_REPORT_HEADER;
-    }
+	public ReportType getReportType()
+	{
+		return ReportType.details;
+	}
     
     @Override
     protected String getReportName()
     {
-        return "details";
+        return ReportType.details.toString();
     }
     
     @Override
@@ -56,14 +59,14 @@ public class DetailReport extends Report {
                 uniqActual.removeAll(intersection);
                 String actualTitles = getTitles(uniqActual, titleIdToName);
                 if (results.containsAll(queryToIds.get(q))) {
-                    items.add(new DetailReportItem(testName, ResultType.supersetResultsFailed, q, expectedTitles, actualTitles));
+                	getItems().add(new DetailReportItem(testName, ResultType.supersetResultsFailed, q, expectedTitles, actualTitles));
                     updateCounter(counters, ResultType.supersetResultsFailed);
                 } else {
-                    items.add(new DetailReportItem(testName, ResultType.differentResultsFailed, q, expectedTitles, actualTitles));
+                	getItems().add(new DetailReportItem(testName, ResultType.differentResultsFailed, q, expectedTitles, actualTitles));
                     updateCounter(counters, ResultType.differentResultsFailed);
                 }
             } else {
-                items.add(new DetailReportItem(testName, ResultType.noResultsFailed, q, expectedTitles, "NONE"));
+            	getItems().add(new DetailReportItem(testName, ResultType.noResultsFailed, q, expectedTitles, NONE));
                 updateCounter(counters, ResultType.noResultsFailed);
             }
         } else
@@ -98,12 +101,12 @@ public class DetailReport extends Report {
             if (currentItem != null) {
                 // TODO: DO NOTHING, they are essentially the same, ignoring the lists for now
             } else {
-                returnValue = new DetailReportItem(new LinkedHashMap<String, String>(previousItem.namedValues));
-                returnValue.namedValues.put("comments", "FIXED");
+                returnValue = new DetailReportItem(new LinkedHashMap<String, String>(previousItem.getNamedValues()));
+                returnValue.setValue(DetailReportHeader.comments.toString(), FIXED);
             }
         } else {
-            returnValue = new DetailReportItem(new LinkedHashMap<String, String>(currentItem.namedValues));
-            returnValue.namedValues.put("comments", "NEW");
+            returnValue = new DetailReportItem(new LinkedHashMap<String, String>(currentItem.getNamedValues()));
+            returnValue.setValue(DetailReportHeader.comments.toString(), NEW);
         }
         return returnValue;
     }
