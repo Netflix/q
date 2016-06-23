@@ -8,17 +8,17 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.netflix.search.query.report.Report;
 import com.netflix.search.query.report.ReportItem;
+import com.netflix.search.query.report.ReportType;
 import com.netflix.search.query.report.ResultType;
 
 public class SummaryReport extends Report {
     
-    public static final String[] SUMMARY_REPORT_HEADER = { "name", "titles", "queries", "supersetResultsFailed", "differentResultsFailed", "noResultsFailed", "successQ", "precision", "recall", "fmeasure", "comments" };
-    
-    public static final String PERCENT_SIGN = "%";
+    private static final String DROPPED = "dropped";
+	public static final String PERCENT_SIGN = "%";
 
     public SummaryReport(List<ReportItem> items) {
         super();
-        this.items = items;
+        this.setItems(items);
     }
 
     public SummaryReport() {
@@ -26,15 +26,15 @@ public class SummaryReport extends Report {
     }
 
     @Override
-    protected String[] getHeader()
-    {
-        return SUMMARY_REPORT_HEADER;
-    }
-
+	public ReportType getReportType()
+	{
+		return ReportType.summary;
+	}
+    
     @Override
     protected String getReportName()
     {
-        return "summary";
+        return ReportType.summary.toString();
     }
     
     @Override
@@ -49,30 +49,30 @@ public class SummaryReport extends Report {
         ReportItem returnValue = new SummaryReportItem();
         if (previousItem == null) {
             if (currentItem != null)
-                returnValue = new SummaryReportItem(new LinkedHashMap<String, String>(currentItem.namedValues));
+                returnValue = new SummaryReportItem(new LinkedHashMap<String, String>(currentItem.getNamedValues()));
         } else {
-            for (String name : previousItem.namedValues.keySet()) {
-                String previousValue = previousItem.namedValues.get(name);
-                if (name.equals("comments")) continue;
-                if (name.equals("name")) {
-                    returnValue.namedValues.put("name", previousValue);
+            for (String name : previousItem.getNamedValues().keySet()) {
+                String previousValue = previousItem.getNamedValues().get(name);
+                if (name.equals(SummaryReportHeader.comments.toString())) continue;
+                if (name.equals(SummaryReportHeader.name.toString())) {
+                    returnValue.getNamedValues().put(SummaryReportHeader.name.toString(), previousValue);
                 } else {
                     if (currentItem == null) {
-                        returnValue.namedValues.put("comments", "dropped");
+                        returnValue.getNamedValues().put(SummaryReportHeader.comments.toString(), DROPPED);
                     } else {
-                        String currentValue = currentItem.namedValues.get(name);
+                        String currentValue = currentItem.getNamedValues().get(name);
                         if (previousValue.contains(PERCENT_SIGN)) {
                             previousValue = previousValue.replaceAll(PERCENT_SIGN, "");
                             currentValue = currentValue.replaceAll(PERCENT_SIGN, "");
                             Double previousNumeric = Double.valueOf(previousValue);
                             Double currentNumeric = Double.valueOf(currentValue);
                             Double difference = currentNumeric - previousNumeric;
-                            returnValue.namedValues.put(name, (String.format("%.2f", (difference)) + PERCENT_SIGN));
+                            returnValue.setValue(name, (String.format("%.2f", (difference)) + PERCENT_SIGN));
                         } else {
                             Integer previousNumeric = Integer.valueOf(previousValue);
                             Integer currentNumeric = Integer.valueOf(currentValue);
                             Integer difference = currentNumeric - previousNumeric;
-                            returnValue.namedValues.put(name, String.valueOf(difference));
+                            returnValue.setValue(name, String.valueOf(difference));
                         }
                     }
                 }
@@ -106,7 +106,7 @@ public class SummaryReport extends Report {
     public void updateSummaryReport(String testName, int titlesTested, int queriesTested, List<Double> precisionList, List<Double> recallList, List<Double> fMeasureList,
             Map<ResultType, Integer> counters)
     {
-        items.add(new SummaryReportItem(testName, titlesTested, queriesTested, calculateAverage(precisionList), calculateAverage(recallList), calculateAverage(fMeasureList), counters));
+    	getItems().add(new SummaryReportItem(testName, titlesTested, queriesTested, calculateAverage(precisionList), calculateAverage(recallList), calculateAverage(fMeasureList), counters));
     }
 
     private static double calculateAverage(List<Double> scores)
@@ -120,4 +120,6 @@ public class SummaryReport extends Report {
         }
         return sum;
     }
+
+	
 }

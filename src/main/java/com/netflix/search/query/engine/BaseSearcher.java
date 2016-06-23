@@ -12,7 +12,7 @@ import com.sun.jersey.api.client.WebResource;
 
 public abstract class BaseSearcher {
 
-	Client client = Client.create();
+	private Client client = Client.create();
 
 	public BaseSearcher() {
 	}

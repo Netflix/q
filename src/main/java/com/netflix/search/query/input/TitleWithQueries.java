@@ -15,7 +15,12 @@ import com.netflix.search.query.utils.StringUtils;
 
 public class TitleWithQueries {
 
-    private static final String SHEET_NAME_DELIMITER = "-";
+    private static final String Q_ = "q_";
+	private static final String TITLE_ALT = "title_alt";
+	private static final String TITLE_LOCALE = "title_locale";
+	private static final String TITLE_EN = "title_en";
+	private static final String ID = "id";
+	private static final String SHEET_NAME_DELIMITER = "-";
 	private static final Joiner JOINER_QUERIES = Joiner.on("~~~");
     private static final Joiner JOINER_CATEGORIES = Joiner.on("=");
 
@@ -78,19 +83,19 @@ public class TitleWithQueries {
             return;
         }
         if (value != null && !value.isEmpty()) {
-            if (headerValue.equalsIgnoreCase("id"))
+            if (headerValue.equalsIgnoreCase(ID))
                 this.id = value;
 
-            else if (headerValue.equalsIgnoreCase("title_en"))
+            else if (headerValue.equalsIgnoreCase(TITLE_EN))
                 this.titleEn = value;
 
-            else if (headerValue.equalsIgnoreCase("title_locale"))
+            else if (headerValue.equalsIgnoreCase(TITLE_LOCALE))
                 this.titleLocale = value;
 
-            else if (headerValue.equalsIgnoreCase("title_alt"))
+            else if (headerValue.equalsIgnoreCase(TITLE_ALT))
                 this.titleAlt = value;
 
-            else if (headerValue.startsWith("q_")) {
+            else if (headerValue.startsWith(Q_)) {
                 String cleanedHeader = headerValue.substring(2);
                 Set<String> queriesForThisCategory = queriesByCategory.get(cleanedHeader);
                 if (queriesForThisCategory == null)

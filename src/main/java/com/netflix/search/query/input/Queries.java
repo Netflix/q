@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.netflix.search.query.report.GoogleDataExtractor;
+import com.netflix.search.query.report.google.GoogleDataExtractor;
 
 public class Queries {
     private Map<String, Set<String>> queryToIdMap = Maps.newHashMap();

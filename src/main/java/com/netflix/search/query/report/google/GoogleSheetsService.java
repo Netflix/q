@@ -1,4 +1,4 @@
-package com.netflix.search.query.report;
+package com.netflix.search.query.report.google;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,13 +40,15 @@ import com.google.gdata.data.spreadsheet.WorksheetEntry;
 import com.google.gdata.util.ServiceException;
 import com.netflix.search.query.Properties;
 import com.netflix.search.query.input.TitleWithQueries;
-import com.netflix.search.query.report.detail.DetailReport;
+import com.netflix.search.query.report.Report;
+import com.netflix.search.query.report.ReportItem;
+import com.netflix.search.query.report.ReportType;
 import com.netflix.search.query.report.detail.DetailReportItem;
-import com.netflix.search.query.report.summary.SummaryReport;
 import com.netflix.search.query.report.summary.SummaryReportItem;
 import com.netflix.search.query.utils.DateUtil;
+import com.netflix.search.query.utils.HeaderUtils;
 
-class GoogleSheetsService {
+public class GoogleSheetsService {
 
     private static final Pattern VALID_A1_PATTERN = Pattern.compile("([A-Z]+)([0-9]+)");
 
@@ -118,7 +120,7 @@ class GoogleSheetsService {
     {
         SpreadsheetEntry spreadsheet = getSpreadsheet(summaryReportName);
         String worksheetId = getLatestWorksheetId(spreadsheet);
-        return extractWorksheetData(spreadsheet, worksheetId, SummaryReport.SUMMARY_REPORT_HEADER);
+        return extractWorksheetData(spreadsheet, worksheetId, HeaderUtils.getHeader(ReportType.summary));
 
     }
 
@@ -126,7 +128,7 @@ class GoogleSheetsService {
     {
         SpreadsheetEntry spreadsheet = getSpreadsheet(detailReportName);
         String worksheetId = getLatestWorksheetId(spreadsheet);
-        return extractWorksheetData(spreadsheet, worksheetId, DetailReport.DETAIL_REPORT_HEADER);
+        return extractWorksheetData(spreadsheet, worksheetId, HeaderUtils.getHeader(ReportType.details));
     }
 
     
@@ -301,7 +303,7 @@ class GoogleSheetsService {
                 if (rowIndex == 1) {
                     batchEntry.changeInputValueLocal(rowHeader);
                 } else
-                    batchEntry.changeInputValueLocal(reportItems.get(rowIndex - 2).namedValues.get(rowHeader));
+                    batchEntry.changeInputValueLocal(reportItems.get(rowIndex - 2).getNamedValues().get(rowHeader));
                 BatchUtils.setBatchId(batchEntry, id);
                 BatchUtils.setBatchOperationType(batchEntry, BatchOperationType.UPDATE);
                 batchRequest.getEntries().add(batchEntry);
