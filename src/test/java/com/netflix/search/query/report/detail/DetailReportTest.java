@@ -6,8 +6,8 @@ import java.util.Map;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.beust.jcommander.internal.Lists;
-import com.beust.jcommander.internal.Maps;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.netflix.search.query.report.Report;
 import com.netflix.search.query.report.ReportItem;
 import com.netflix.search.query.report.ResultType;
