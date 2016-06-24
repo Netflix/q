@@ -1,5 +1,6 @@
 package com.netflix.search.query;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -190,5 +191,12 @@ public class QueryTestsTest {
 		}
 	}	
 	
+	@Test
+	public void getLanguage(){
+		List<String> languageForTest = queryTests.getLanguageForTest("swedish-video");
+		List<String> languageForTestExpected = Lists.newArrayList();
+		languageForTestExpected.add("sv");
+		Assert.assertEquals(languageForTest, languageForTestExpected);
+	}
 	
 }

@@ -12,13 +12,13 @@ public class SolrIndexer extends BaseIndexer{
     }
 
 	@Override
-	protected String getUrlForAddingDoc(Map<String, Object> doc)
+	public String getUrlForAddingDoc(Map<String, Object> doc)
 	{
 		return getServerUrl()+"/update";
 	}
 
 	@Override
-	protected String getUrlForCommitting()
+	public String getUrlForCommitting()
 	{
 		return getServerUrl()+"/update?commit=true";
 	}

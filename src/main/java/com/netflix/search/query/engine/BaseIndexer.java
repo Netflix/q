@@ -69,7 +69,7 @@ public abstract class BaseIndexer {
         return docs;
     }
 
-    protected Map<String, Object> createDoc(String id, String english, String local, String altTitle, List<String> languages)
+    public Map<String, Object> createDoc(String id, String english, String local, String altTitle, List<String> languages)
     {
         Map<String, Object> doc = new HashMap<String, Object>();
         doc.put(Properties.idField.get(), StringUtils.createIdUsingTestName(id, testName));
@@ -88,7 +88,7 @@ public abstract class BaseIndexer {
         }
         if (english != null && english.length() > 0) {
         	for(String fieldName: Properties.titleFields.get())
-        		doc.put(fieldName+"_en", local);
+        		doc.put(fieldName+"_en", english);
         }
 		if (altTitle != null && altTitle.length() > 0) {
 			for (String language : languages) {
@@ -173,8 +173,8 @@ public abstract class BaseIndexer {
     	return "http://" + Properties.engineHost.get() + ":" + Properties.enginePort.get() + "/" + Properties.engineServlet.get() + "/" + Properties.engineIndexName.get();
     }
 	
-	protected abstract String getUrlForAddingDoc(Map<String, Object> doc);
-	protected abstract String getUrlForCommitting();
+	public abstract String getUrlForAddingDoc(Map<String, Object> doc);
+	public abstract String getUrlForCommitting();
 
     public Map<String, String> getTitleToIds() throws FileNotFoundException, UnsupportedEncodingException, IOException
     {

@@ -15,11 +15,11 @@ import com.netflix.search.query.utils.StringUtils;
 
 public class TitleWithQueries {
 
-    private static final String Q_ = "q_";
-	private static final String TITLE_ALT = "title_alt";
-	private static final String TITLE_LOCALE = "title_locale";
-	private static final String TITLE_EN = "title_en";
-	private static final String ID = "id";
+	public static final String Q_ = "q_";
+	public static final String TITLE_ALT = "title_alt";
+	public static final String TITLE_LOCALE = "title_locale";
+	public static final String TITLE_EN = "title_en";
+	public static final String ID = "id";
 	private static final String SHEET_NAME_DELIMITER = "-";
 	private static final Joiner JOINER_QUERIES = Joiner.on("~~~");
     private static final Joiner JOINER_CATEGORIES = Joiner.on("=");

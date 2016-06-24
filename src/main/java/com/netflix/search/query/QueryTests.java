@@ -170,7 +170,7 @@ public class QueryTests {
 		}
 	}
 
-	private List<String> getLanguageForTest(String testName)
+	protected List<String> getLanguageForTest(String testName)
     {
         List<String> languages = Lists.newArrayList();
         Map<String, String> languageExpansionBasedOnTestNames = Properties.languageExpansionBasedOnTestNames.getMap();
