@@ -11,8 +11,8 @@ public class Properties {
 	
     public static final DynamicStringProperty engineHost = new DynamicStringProperty("com.netflix.search.query.testing.engineHost", "localhost");
     public static final DynamicStringProperty enginePort = new DynamicStringProperty("com.netflix.search.query.testing.enginePort", "8080");
-    public static final DynamicStringProperty engineServlet = new DynamicStringProperty("com.netflix.search.query.testing.engineServlet", "search");
-    public static final DynamicStringProperty engineIndexName = new DynamicStringProperty("com.netflix.search.query.testing.engineIndexName", "core1");
+    public static final DynamicStringProperty engineServlet = new DynamicStringProperty("com.netflix.search.query.testing.engineServlet", "solr");
+    public static final DynamicStringProperty engineIndexName = new DynamicStringProperty("com.netflix.search.query.testing.engineIndexName", "qtest");
     public static final DynamicStringProperty engineType = new DynamicStringProperty("com.netflix.search.query.testing.engineType", "solr");
     
     public static final DynamicStringProperty esDocType = new DynamicStringProperty("com.netflix.search.query.testing.esDocType", "test_doc");
