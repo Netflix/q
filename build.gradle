@@ -9,9 +9,11 @@ plugins {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
 group = 'com.netflix.search'
+mainClassName = 'com.netflix.search.query.QueryTests'
 
 repositories {
     jcenter()
@@ -28,6 +30,15 @@ dependencies {
     testCompile 'org.mockito:mockito-all:latest.release'
 }
 
+run {
+ systemProperties System.properties
+}
+
 test {
     useTestNG()
+    
+    testLogging {
+       events "failed"
+       exceptionFormat "short"
+   }
 }
