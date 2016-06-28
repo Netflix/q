@@ -40,5 +40,8 @@ test {
     testLogging {
        events "failed"
        exceptionFormat "short"
+       showStackTraces true
+       showExceptions true
+       showCauses true
    }
 }
