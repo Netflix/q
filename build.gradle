@@ -1,29 +1,20 @@
+buildscript {
+    repositories { jcenter() }
+}
+
 plugins {
-  id 'nebula.netflixoss' version '3.2.3'
+    id 'nebula.netflixoss' version '3.3.0'
+    id 'nebula.dependency-lock' version '4.3.0'
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
 sourceCompatibility = 1.8
-version = '1.0.0'
-group = "com.netflix.search"
-
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Query Testing Framework',
-                   'Implementation-Version': version
-    }
-}
+group = 'com.netflix.search'
 
 repositories {
     jcenter()
-}
-
-sourceSets {
-    main {
-       output.resourcesDir = "build/classes/main"
-    }
 }
   
 dependencies {
@@ -38,10 +29,5 @@ dependencies {
 }
 
 test {
-   useTestNG()
-}
-
-task copyLibs(type: Copy) {
-    into "lib"
-    from configurations.compile
+    useTestNG()
 }
