@@ -1,6 +1,5 @@
 package com.netflix.search.query;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,7 +12,6 @@ import org.testng.annotations.Test;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.netflix.search.query.QueryTests;
 import com.netflix.search.query.engine.solr.SolrIndexer;
 import com.netflix.search.query.engine.solr.SolrSearcher;
 import com.netflix.search.query.report.ReportItem;

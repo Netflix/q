@@ -10,18 +10,18 @@ import com.netflix.config.DynamicStringSetProperty;
 public class Properties {
 	
     public static final DynamicStringProperty engineHost = new DynamicStringProperty("com.netflix.search.query.testing.engineHost", "localhost");
-    public static final DynamicStringProperty enginePort = new DynamicStringProperty("com.netflix.search.query.testing.enginePort", "8080");
+    public static final DynamicStringProperty enginePort = new DynamicStringProperty("com.netflix.search.query.testing.enginePort", "8983");
     public static final DynamicStringProperty engineServlet = new DynamicStringProperty("com.netflix.search.query.testing.engineServlet", "solr");
     public static final DynamicStringProperty engineIndexName = new DynamicStringProperty("com.netflix.search.query.testing.engineIndexName", "qtest");
     public static final DynamicStringProperty engineType = new DynamicStringProperty("com.netflix.search.query.testing.engineType", "solr");
     
     public static final DynamicStringProperty esDocType = new DynamicStringProperty("com.netflix.search.query.testing.esDocType", "test_doc");
     
-    public final static DynamicStringListProperty validDataSetsId = new DynamicStringListProperty("com.netflix.search.query.testing.validDataSetsId", "swedish-video");
-    public final static DynamicStringListProperty queryCategories = new DynamicStringListProperty("com.netflix.search.query.testing.queryCategories", "regular,misspelled");
-    public final static DynamicStringSetProperty languagesRequiringAdditionalField = new DynamicStringSetProperty("com.netflix.search.query.testing.languagesRequiringAdditionalField", "");
+    public static final DynamicStringListProperty validDataSetsId = new DynamicStringListProperty("com.netflix.search.query.testing.validDataSetsId", "swedish-video");
+    public static final DynamicStringListProperty queryCategories = new DynamicStringListProperty("com.netflix.search.query.testing.queryCategories", "regular,misspelled");
+    public static final DynamicStringSetProperty languagesRequiringAdditionalField = new DynamicStringSetProperty("com.netflix.search.query.testing.languagesRequiringAdditionalField", "");
 
-    public final static DynamicStringMapProperty languageExpansionBasedOnTestNames = new DynamicStringMapProperty("com.netflix.search.query.testing.languageExpansionBasedOnTestNames", "swedish=sv");
+    public static final DynamicStringMapProperty languageExpansionBasedOnTestNames = new DynamicStringMapProperty("com.netflix.search.query.testing.languageExpansionBasedOnTestNames", "swedish=sv");
     
     public static final DynamicBooleanProperty isLocalTest = new DynamicBooleanProperty("com.netflix.search.query.testing.isLocalTest",false);
     
@@ -38,7 +38,7 @@ public class Properties {
     public static final DynamicStringListProperty requiredNumericFields = new DynamicStringListProperty("com.netflix.search.query.testing.requiredNumericFields", "");
     public static final DynamicStringListProperty requiredStringFields = new DynamicStringListProperty("com.netflix.search.query.testing.requiredStringFields", "");
 
-    public static final DynamicStringProperty docTypeFieldName = new DynamicStringProperty("com.netflix.search.query.testing.docTypeFieldName", "type");
+    public static final DynamicStringProperty docTypeFieldName = new DynamicStringProperty("com.netflix.search.query.testing.docTypeFieldName", "query_testing_type");
     public static final DynamicStringProperty inputDelimiter = new DynamicStringProperty("com.netflix.search.query.testing.inputDelimiter", "\t");
     public static final DynamicStringProperty dateFormat = new DynamicStringProperty("com.netflix.search.query.testing.dateFormat", "yyyyMMMdd_HH:mm:ss");
     

@@ -42,9 +42,9 @@ public class SolrIndexerTest {
 		Assert.assertEquals(jsonStringOfDoc.toString(), "[{\"query_testing_type\":\"test1\",\"title_en\":\"title en\",\"id\":\"123_test1\",\"title_es\":[\"title es\"]}]");
 		
 		String urlForAddingDoc = indexer.getUrlForAddingDoc(createdDoc);
-		Assert.assertEquals(urlForAddingDoc, "http://localhost:8080/search/core1/update");
+		Assert.assertEquals(urlForAddingDoc, "http://localhost:8983/solr/qtest/update");
 
 		String urlForCommitting = indexer.getUrlForCommitting();
-		Assert.assertEquals(urlForCommitting, "http://localhost:8080/search/core1/update?commit=true");
+		Assert.assertEquals(urlForCommitting, "http://localhost:8983/solr/qtest/update?commit=true");
 	}
 }

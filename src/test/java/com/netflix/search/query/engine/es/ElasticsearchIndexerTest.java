@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.collections.Maps;
 
@@ -23,18 +21,6 @@ public class ElasticsearchIndexerTest {
 	private static final String SPANISH_TITLE = "title es";
 	private static final String ENGLISH_TITLE = "title en";
 	private static final String TEST1 = "test1";
-
-	@BeforeMethod
-	public void setup()
-	{
-		System.setProperty("com.netflix.search.query.testing.engineType", "es");
-	}
-
-	@AfterMethod
-	public void cleanup()
-	{
-		System.setProperty("com.netflix.search.query.testing.engineType", "solr`");
-	}
 
 	@Test
 	void createDocTest()
@@ -58,10 +44,10 @@ public class ElasticsearchIndexerTest {
 		Assert.assertEquals(jsonStringOfDoc.toString(), "{\"query_testing_type\":\"test1\",\"title_en\":\"title en\",\"id\":\"123_test1\",\"title_es\":[\"title es\"]}");
 		
 		String urlForAddingDoc = indexer.getUrlForAddingDoc(createdDoc);
-		Assert.assertEquals(urlForAddingDoc, "http://localhost:8080/search/core1/test_doc/123_test1");
+		Assert.assertEquals(urlForAddingDoc, "http://localhost:8983/solr/qtest/test_doc/123_test1");
 
 		String urlForCommitting = indexer.getUrlForCommitting();
-		Assert.assertEquals(urlForCommitting, "http://localhost:8080/search/core1/_flush");
+		Assert.assertEquals(urlForCommitting, "http://localhost:8983/solr/qtest/_flush");
 
 	}
 }
