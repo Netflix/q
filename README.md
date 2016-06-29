@@ -16,30 +16,30 @@ To set up the google spreadsheets dataset, follow these steps:
 
 1. Create a new google app https://console.developers.google.com
 The app name goes into this property:
-`com.netflix.search.query.testing.googleAppName=CHANGE-ME`
+`search.query.testing.googleAppName=CHANGE-ME`
 
 2. Create a new google email service account https://console.developers.google.com
 The email address goes into this property:
-`com.netflix.search.query.testing.serviceAccountEmail=CHANGE-ME@appspot.gserviceaccount.com`
+`search.query.testing.serviceAccountEmail=CHANGE-ME@appspot.gserviceaccount.com`
 
 3. Download p12 public key and specify its location in these properties:
-`com.netflix.search.query.testing.p12KeyFileName=CHANGE-ME.p12`
-`com.netflix.search.query.testing.googleSheetsKeyDir=data/g_sheets/`
+`search.query.testing.p12KeyFileName=CHANGE-ME.p12`
+`search.query.testing.googleSheetsKeyDir=data/g_sheets/`
 
 4. Create a new google spreadsheet for the data input, add the created above account to it with VIEW access.
 Specify the name of your new spreadsheet in this property:
-`com.netflix.search.query.testing.inputQueriesSheet=query-testing-framework-input`
+`search.query.testing.inputQueriesSheet=query-testing-framework-input`
 
 5. Copy this sheet as an example of the data input into your new spreadsheet: 
 https://docs.google.com/spreadsheets/d/10c9zEo4cBWL_rJAFEqNbpu1vpcTkAwubOOZZAYpRzGE/edit?usp=sharing
 
 6. Create two more spreadsheets for the results summary and details. Assign your created email to these spreadsheets with EDIT access.
 Specify the names in these properties:
-`com.netflix.search.query.testing.sumReportSheet=query-testing-framework-results-sum`
-`com.netflix.search.query.testing.detailReportSheet=query-testing-framework-results-details`
+`search.query.testing.sumReportSheet=query-testing-framework-results-sum`
+`search.query.testing.detailReportSheet=query-testing-framework-results-details`
 
 7. The document type explicit field has to be maintained for search filtering.  The field name can be set by this property, it needs to exist in the configuration of the search engine:
-`com.netflix.search.query.testing.docTypeFieldName=query-testing-type`
+`search.query.testing.docTypeFieldName=query-testing-type`
 
 
 DATA MAINTENANCE
@@ -52,18 +52,28 @@ BUILDING
 -----------
 
 Query Testing Framework is built via Gradle (http://www.gradle.org). To build from the command line:
- `./gradlew build copyLibs`
+ `./gradlew build`
 
 RUNNING 
 -----------
 
 Run:
-`java -cp .:build/libs/*:lib/* com.netflix.search.query.QueryTests`
+
+Using gradle:
+`./gradlew run -Darchaius.configurationSource.additionalUrls=file:///config-es.properties`
+
+Where -Darchaius.configurationSource.additionalUrls will override the default properties.
+
+When using the artifacts, you can run it like so from a java program:
+
+`new QueryTests().getDataRunTestsUpdateReports();`
 
 ARTIFACTS
 -----------
 
 Query testing framework binaries are published to Maven Central.
+
+`compile 'com.netflix.search:q:1.0.0'`
 
 
 DEFAULT PROPERTIES OVERRIDING:
