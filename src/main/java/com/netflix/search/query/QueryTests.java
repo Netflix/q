@@ -103,7 +103,7 @@ public class QueryTests {
        new QueryTests().getDataRunTestsUpdateReports();
     }
 
-    protected void getDataRunTestsUpdateReports() throws IOException, Throwable, FileNotFoundException, UnsupportedEncodingException
+    public void getDataRunTestsUpdateReports() throws IOException, Throwable, FileNotFoundException, UnsupportedEncodingException
     {
         long start = System.currentTimeMillis();
         googleDataExtractor = getGoogleDataExtractor();
