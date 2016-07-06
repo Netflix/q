@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.netflix.search.query.Properties;
 import com.sun.jersey.api.client.Client;
@@ -11,6 +14,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 public abstract class BaseSearcher {
+
+    public static final Logger logger = LoggerFactory.getLogger(BaseSearcher.class);
 
 	private Client client = Client.create();
 
@@ -22,7 +27,7 @@ public abstract class BaseSearcher {
 		String urlForGettingDoc = getUrlForGettingDoc(q, languages, dataSetId);
 
 		if (Properties.isPrintUrl.get())
-			System.out.println(urlForGettingDoc);
+			logger.info(urlForGettingDoc);
 
 		String jsonString = getJsonForQuery(q, languages, dataSetId);
 

@@ -14,6 +14,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
@@ -49,6 +52,7 @@ import com.netflix.search.query.utils.DateUtil;
 import com.netflix.search.query.utils.HeaderUtils;
 
 public class GoogleSheetsService {
+    public static final Logger logger = LoggerFactory.getLogger(GoogleSheetsService.class);
 
     private static final Pattern VALID_A1_PATTERN = Pattern.compile("([A-Z]+)([0-9]+)");
 
@@ -73,10 +77,8 @@ public class GoogleSheetsService {
                 this.detailReportName +=Properties.devSpreadsheetSuffix.get();
             }
             initSpreadsheetService();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.error("Error trying to init the GoogleSheetsService", e);
         }
     }
 
@@ -155,7 +157,7 @@ public class GoogleSheetsService {
         Date reportCurrentDate = new Date(Long.MIN_VALUE);
         for (WorksheetEntry worksheet : worksheets) {
             String title = worksheet.getTitle().getPlainText();
-            if(title.equals("instructions") || title.equals("Sheet 1") || title.startsWith("diff_") || title.startsWith("ignore_")) continue;
+            if(title.equals("instructions") || title.equals("Sheet1") || title.startsWith("diff_") || title.startsWith("ignore_")) continue;
             Date date = dateUtil.getDateFromString(title);
             if (date.after(reportCurrentDate)){
                 reportCurrentDate = date;
@@ -233,14 +235,14 @@ public class GoogleSheetsService {
             return summaryReportName;
     }
 
-    private SpreadsheetEntry getSpreadsheet(String reportSpreadsheetName) throws IOException, Throwable
+    private SpreadsheetEntry getSpreadsheet(String reportSpreadsheetName) throws Throwable
     {
         SpreadsheetFeed feed = spreadsheetService.getFeed(spreadsheetsFeedUrl, SpreadsheetFeed.class);
         for (SpreadsheetEntry spreadsheet : feed.getEntries()) {
             if (spreadsheet.getTitle().getPlainText().equalsIgnoreCase(reportSpreadsheetName))
                 return spreadsheet;
         }
-        return null;
+        throw new RuntimeException(String.format("Either user '%s' has no access to the specified spreadsheet, or there is no spreadsheet named '%s'", Properties.serviceAccountEmail.get(), reportSpreadsheetName));
     }
 
     private void addNewWorksheet(SpreadsheetEntry spreadsheet, String worksheetId, int numberOfRows, int numberOfColumns) throws Throwable
@@ -272,7 +274,7 @@ public class GoogleSheetsService {
             Link batchLink = cellFeed.getLink(Link.Rel.FEED_BATCH, Link.Type.ATOM);
             CellFeed batchResponse = spreadsheetService.batch(new URL(batchLink.getHref()), batchRequest);
             boolean isSuccess = checkResults(batchResponse);
-            System.out.println((isSuccess ? "Batch operations successful: " : "Batch operations failed: ") + worksheet.getTitle().getPlainText());
+            logger.info((isSuccess ? "Batch operations successful: " : "Batch operations failed: ") + worksheet.getTitle().getPlainText());
             startingRow = startingRow + endingRow;
             endingRow = Math.min(numberOfRows, endingRow + rowsInBatch);
         }
@@ -286,7 +288,7 @@ public class GoogleSheetsService {
             if (!BatchUtils.isSuccess(entry)) {
                 isSuccess = false;
                 BatchStatus status = BatchUtils.getBatchStatus(entry);
-                System.out.printf("%s failed (%s) %s", batchId, status.getReason(), status.getContent());
+                logger.error(String.format("%s failed (%s) %s", batchId, status.getReason(), status.getContent()));
             }
         }
         return isSuccess;

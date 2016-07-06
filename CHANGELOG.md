@@ -5,4 +5,8 @@
 ## 1.0.1 (June 29, 2016)
 
   - Making getDataRunTestsUpdateReports() method public (bug fix)
-  
+
+## 1.0.2 (July 05, 2016)
+
+  - Changed the ignored tab name to 'Sheet1' (bug fix)
+  - Added log4j support  
