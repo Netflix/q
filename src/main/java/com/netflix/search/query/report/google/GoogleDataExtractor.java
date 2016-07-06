@@ -8,6 +8,9 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.Maps;
 import com.netflix.search.query.Properties;
 import com.netflix.search.query.input.TitleWithQueries;
@@ -17,6 +20,7 @@ import com.netflix.search.query.report.summary.SummaryReport;
 import com.netflix.search.query.utils.HeaderUtils;
 
 public class GoogleDataExtractor {
+    public static final Logger logger = LoggerFactory.getLogger(GoogleDataExtractor.class);
 
     private static final String ENCODING = "UTF-8";
 	private Map<String, Map<Integer, TitleWithQueries>> titlesWithQueriesPerDataset = Maps.newLinkedHashMap();
@@ -29,7 +33,7 @@ public class GoogleDataExtractor {
         try {
             initExtractor();
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.error("Error trying to init the GoogleDataExtractor", e);
         }
     }
 
@@ -52,7 +56,7 @@ public class GoogleDataExtractor {
     {
         searchGoogleSheetsService = new GoogleSheetsService();
         for (String sheetId : Properties.validDataSetsId.get()) {
-            System.out.println("Initializing and Downloading: " + sheetId);
+            logger.info("Initializing and Downloading: " + sheetId);
             Map<Integer, TitleWithQueries> titlesWithQueries = searchGoogleSheetsService.extractTitlesWithQueries(sheetId);
             titlesWithQueriesPerDataset.put(sheetId, titlesWithQueries);
             List<String> titlesWithQueriesAsTsv = searchGoogleSheetsService.getTitlesWithQueriesAsTsv(sheetId);
@@ -61,13 +65,13 @@ public class GoogleDataExtractor {
         List<String> previousSummaryReportAsTsv = searchGoogleSheetsService.getLatestSummaryReportAsTsv();
         writeReportToLocalDisk("summary_previous", previousSummaryReportAsTsv);
         searchGoogleSheetsService.extractReport(previousSummaryReport, false);
-        System.out.println("Initializing and Downloading: " + previousSummaryReport);
+        logger.info("Initializing and Downloading: " + previousSummaryReport);
 
 
         List<String> previousDetailReportAsTsv = searchGoogleSheetsService.getLatestDetailReportAsTsv();
         writeReportToLocalDisk("details_previous", previousDetailReportAsTsv);
         searchGoogleSheetsService.extractReport(previousDetailReport, true);
-        System.out.println("Initializing and Downloading: " + previousDetailReport);
+        logger.info("Initializing and Downloading: " + previousDetailReport);
 
 
     }

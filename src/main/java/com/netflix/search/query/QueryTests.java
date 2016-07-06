@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -26,6 +29,7 @@ import com.netflix.search.query.report.google.GoogleDataExtractor;
 import com.netflix.search.query.report.summary.SummaryReport;
 
 public class QueryTests {
+    public static final Logger logger = LoggerFactory.getLogger(QueryTests.class);
 
     private static final String MAP_VALUE_DELIMITER = "\\|";
 	private static final String SHEET_TAB_NAME_DELIMITER = "-";
@@ -103,41 +107,48 @@ public class QueryTests {
        new QueryTests().getDataRunTestsUpdateReports();
     }
 
-    public void getDataRunTestsUpdateReports() throws IOException, Throwable, FileNotFoundException, UnsupportedEncodingException
-    {
-        long start = System.currentTimeMillis();
-        googleDataExtractor = getGoogleDataExtractor();
-        detailReport = getDetailReport();
-        summaryReport = getSummaryReport();
+	public void getDataRunTestsUpdateReports() throws Throwable
+	{
+		try
+		{
+			long start = System.currentTimeMillis();
+			googleDataExtractor = getGoogleDataExtractor();
+			detailReport = getDetailReport();
+			summaryReport = getSummaryReport();
 
-        populateAllQueriesFromGoogleSpreadsheets();
-        runAllTests();
-        Report previousSummaryReport = googleDataExtractor.getPreviousSummaryReport();
-        Report previousDetailReport = googleDataExtractor.getPreviousDetailReport();
-        
-        detailReport.saveToLocalDisk();
-        System.out.println("Generated: " + detailReport);
+			populateAllQueriesFromGoogleSpreadsheets();
+			runAllTests();
+			Report previousSummaryReport = googleDataExtractor.getPreviousSummaryReport();
+			Report previousDetailReport = googleDataExtractor.getPreviousDetailReport();
 
-        summaryReport.saveToLocalDisk();
-        System.out.println("Generated: " + summaryReport);
-        
-        Report detailDiffs = detailReport.createReportDiffs(previousDetailReport);
-        System.out.println("Generated: " + detailDiffs);
+			detailReport.saveToLocalDisk();
+			logger.info("Generated: " + detailReport);
 
-        Report summaryDiff = summaryReport.createReportDiffs(previousSummaryReport);
-        System.out.println("Generated: " + summaryDiff);
+			summaryReport.saveToLocalDisk();
+			logger.info("Generated: " + summaryReport);
 
-        detailDiffs.saveToLocalDisk();
-        summaryDiff.saveToLocalDisk();
+			Report detailDiffs = detailReport.createReportDiffs(previousDetailReport);
+			logger.info("Generated: " + detailDiffs);
 
-        if (!Properties.isLocalTest.get()) {
-            googleDataExtractor.publishReportToGoogleSpreadsheet(detailReport);
-            googleDataExtractor.publishReportToGoogleSpreadsheet(summaryReport);
-            googleDataExtractor.publishReportToGoogleSpreadsheet(detailDiffs);
-            googleDataExtractor.publishReportToGoogleSpreadsheet(summaryDiff);
-        }
-        System.out.println("All tests took: " + (System.currentTimeMillis() - start) + " ms");
-    }
+			Report summaryDiff = summaryReport.createReportDiffs(previousSummaryReport);
+			logger.info("Generated: " + summaryDiff);
+
+			detailDiffs.saveToLocalDisk();
+			summaryDiff.saveToLocalDisk();
+
+			if (!Properties.isLocalTest.get())
+			{
+				googleDataExtractor.publishReportToGoogleSpreadsheet(detailReport);
+				googleDataExtractor.publishReportToGoogleSpreadsheet(summaryReport);
+				googleDataExtractor.publishReportToGoogleSpreadsheet(detailDiffs);
+				googleDataExtractor.publishReportToGoogleSpreadsheet(summaryDiff);
+			}
+			logger.info("All tests took: " + (System.currentTimeMillis() - start) + " ms");
+		} catch (Throwable e)
+		{
+			logger.error("Couldn't proceed running query tests", e);
+		}
+	}
 
     private void runAllTests() throws IOException, Throwable, FileNotFoundException, UnsupportedEncodingException
     {
@@ -150,10 +161,10 @@ public class QueryTests {
 			if (indexer == null)
 				continue nextTest;
 			searcher = getSearcher();
-			System.out.println("Processing: " + testName);
+			logger.info("Processing: " + testName);
 			indexer.indexData(languages);
 			runTest(testName, languages);
-			System.out.println(testName + " took: " + (System.currentTimeMillis() - start) + " ms");
+			logger.info(testName + " took: " + (System.currentTimeMillis() - start) + " ms");
 		}
     }
 
@@ -165,7 +176,7 @@ public class QueryTests {
 			return new ElasticsearchSearcher();
 		else
 		{
-			System.out.println("No support for the engine type: " + Properties.engineType.get());
+			logger.error("No support for the engine type: " + Properties.engineType.get());
 			return null;
 		}
 	}
@@ -232,11 +243,11 @@ public class QueryTests {
 				return new ElasticsearchIndexer(inputFileName, datasetId);
 			else
 			{
-				System.out.println("No support for the engine type: " + Properties.engineType.get());
+				logger.error("No support for the engine type: " + Properties.engineType.get());
 				return null;
 			}
 		else {
-			System.out.println("Data doesn't exist: " + inputFileName + " skipping the test " + testId);
+			logger.error("Data doesn't exist: " + inputFileName + " skipping the test " + testId);
 			return null;
 		}
 	}

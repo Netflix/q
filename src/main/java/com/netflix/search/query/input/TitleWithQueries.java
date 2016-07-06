@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
@@ -14,6 +17,7 @@ import com.netflix.search.query.Properties;
 import com.netflix.search.query.utils.StringUtils;
 
 public class TitleWithQueries {
+    public static final Logger logger = LoggerFactory.getLogger(TitleWithQueries.class);
 
 	public static final String Q_ = "q_";
 	public static final String TITLE_ALT = "title_alt";
@@ -79,7 +83,7 @@ public class TitleWithQueries {
     public void setValue(String headerValue, String value)
     {
         if(headerValue==null){
-            System.err.println("Header is missing for this value: " + value);
+            logger.error("Header is missing for this value: " + value);
             return;
         }
         if (value != null && !value.isEmpty()) {

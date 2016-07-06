@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.api.client.util.Lists;
 import com.google.api.client.util.Maps;
 import com.google.common.base.Joiner;
@@ -17,6 +20,8 @@ import com.netflix.search.query.utils.DateUtil;
 import com.netflix.search.query.utils.HeaderUtils;
 
 public abstract class Report {
+    public static final Logger logger = LoggerFactory.getLogger(Report.class);
+
     private static final String ENCODING = "UTF-8";
 
     private List<ReportItem> items = Lists.newArrayList();
@@ -25,21 +30,13 @@ public abstract class Report {
     private DateUtil dateUtil = new DateUtil();
 
     public Report() {
-        try {
-            this.date = dateUtil.getDateFromCurrentTime();
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+		this.date = dateUtil.getDateFromCurrentTime();
     }
 
     public void setDate(String dateString)
     {
-        try {
-        	if(dateString!=null)
-        		this.date = dateUtil.getDateFromString(dateString);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+		if (dateString != null)
+			this.date = dateUtil.getDateFromString(dateString);
     }
 
     public String reportNameForUpload()

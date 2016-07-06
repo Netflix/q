@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +29,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 public abstract class BaseIndexer {
+    public static final Logger logger = LoggerFactory.getLogger(BaseIndexer.class);
 
     public static final String ENCODING = "UTF-8";
     private static final int BUFFER_SIZE = 1 << 16; // 64K
@@ -45,7 +49,7 @@ public abstract class BaseIndexer {
         List<Map<String, Object>> docs = createDocs(languages);
         update(docs);
         commit();
-        System.out.println("Indexing took: " + (System.currentTimeMillis() - start) + " ms");
+        logger.info("Indexing took: " + (System.currentTimeMillis() - start) + " ms");
     }
 
     protected List<Map<String, Object>> createDocs(List<String> languages) throws Throwable
@@ -60,7 +64,7 @@ public abstract class BaseIndexer {
 			if (lineString.startsWith(Properties.idField.get() + Properties.inputDelimiter.get()))
 				continue;
             if (line.length < 3)
-                System.out.println("Bad data: " + lineString);
+                logger.error("Bad data: " + lineString);
             else
                 docs.add(createDoc(line[0], line[1], line[2], line[3], languages));
         }
@@ -118,7 +122,7 @@ public abstract class BaseIndexer {
 			try {
 				addDoc(doc);
 			} catch (Throwable e) {
-				System.out.println("bad doc" + doc);
+				logger.error("bad doc" + doc);
 				throw new RuntimeException(e);
 			}
 		}
@@ -154,7 +158,7 @@ public abstract class BaseIndexer {
 			jsonString.append(new ObjectMapper().writeValueAsString(node));
 		} catch (JsonProcessingException e)
 		{
-			e.printStackTrace();
+			logger.error("Error trying to generate a string from a json node", e);
 		}
 	}
 
