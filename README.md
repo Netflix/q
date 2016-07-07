@@ -73,7 +73,7 @@ ARTIFACTS
 
 Query testing framework binaries are published to Maven Central.
 
-`compile 'com.netflix.search:q:1.0.0'`
+`compile 'com.netflix.search:q:latest.release'`
 
 
 DEFAULT PROPERTIES OVERRIDING:
