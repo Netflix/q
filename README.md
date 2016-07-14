@@ -9,6 +9,7 @@ are maintained in google spreadsheets, which can be easily populated by the test
 tests against the search engine and publishes the results.  For more details, see the 
 
 http://techblog.netflix.com/2016/07/global-languages-support-at-netflix.html
+
 https://github.com/Netflix/q/wiki
 
 SETUP
@@ -17,14 +18,15 @@ SETUP
 To set up the google spreadsheets dataset, as well as the instructions for Solr and Elasticsearch setup/configurations see this document:
 
 https://github.com/Netflix/q/wiki/Setting-up-Google-Spreadsheets
+
 https://github.com/Netflix/q/wiki/Setting-up-for-Solr
+
 https://github.com/Netflix/q/wiki/Setting-up-for-Elasticsearch
 
 DATA MAINTENANCE
 ----------------
 
 The deletion of any data was removed from the module by design.  When the dataset is updated (e.g. new tests are run), the search engine stale dataset removal is the developer responsibility.  
-
 
 BUILDING
 -----------
@@ -43,13 +45,12 @@ Query testing framework binaries are published to Maven Central.
 
 `compile 'com.netflix.search:q:latest.release'`
 
-
 DEFAULT PROPERTIES OVERRIDING:
 -----------
 
 Override the default properties by adding this to command line:
-`-Darchaius.configurationSource.additionalUrls=file:///data/config-LOCAL_PROPERTIES.properties`
 
+`-Darchaius.configurationSource.additionalUrls=file:///data/config-LOCAL_PROPERTIES.properties`
 
 AUTHOR
 -----------
