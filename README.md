@@ -8,17 +8,17 @@ the handling the tokens specific to different languages (word delimiters, specia
 are maintained in google spreadsheets, which can be easily populated by the testers.  This library then reads the datasets, runs the 
 tests against the search engine and publishes the results.  For more details, see the 
 
-	http://techblog.netflix.com/2016/07/global-languages-support-at-netflix.html
-	https://github.com/Netflix/q/wiki
+http://techblog.netflix.com/2016/07/global-languages-support-at-netflix.html
+https://github.com/Netflix/q/wiki
 
 SETUP
 -----------
 
 To set up the google spreadsheets dataset, as well as the instructions for Solr and Elasticsearch setup/configurations see this document:
 
-	https://github.com/Netflix/q/wiki/Setting-up-Google-Spreadsheets
-	https://github.com/Netflix/q/wiki/Setting-up-for-Solr
-	https://github.com/Netflix/q/wiki/Setting-up-for-Elasticsearch
+https://github.com/Netflix/q/wiki/Setting-up-Google-Spreadsheets
+https://github.com/Netflix/q/wiki/Setting-up-for-Solr
+https://github.com/Netflix/q/wiki/Setting-up-for-Elasticsearch
 
 DATA MAINTENANCE
 ----------------
@@ -29,12 +29,12 @@ The deletion of any data was removed from the module by design.  When the datase
 BUILDING
 -----------
 	
-	https://github.com/Netflix/q/wiki/Building
+https://github.com/Netflix/q/wiki/Building
 
 RUNNING 
 -----------
 
-	https://github.com/Netflix/q/wiki/Running
+https://github.com/Netflix/q/wiki/Running
 
 ARTIFACTS
 -----------
@@ -65,7 +65,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
