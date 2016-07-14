@@ -6,41 +6,19 @@ DESCRIPTION
 Query testing framework is a library which allows one to test a dataset of queries against a search engine.  The focus is on
 the handling the tokens specific to different languages (word delimiters, special characters, morphemes, etc...).  Different datasets
 are maintained in google spreadsheets, which can be easily populated by the testers.  This library then reads the datasets, runs the 
-tests against the search engine and publishes the results.
+tests against the search engine and publishes the results.  For more details, see the 
 
+	http://techblog.netflix.com/2016/07/global-languages-support-at-netflix.html
+	https://github.com/Netflix/q/wiki
 
 SETUP
 -----------
 
-To set up the google spreadsheets dataset, follow these steps:
+To set up the google spreadsheets dataset, as well as the instructions for Solr and Elasticsearch setup/configurations see this document:
 
-1. Create a new google app https://console.developers.google.com
-The app name goes into this property:
-`search.query.testing.googleAppName=CHANGE-ME`
-
-2. Create a new google email service account https://console.developers.google.com
-The email address goes into this property:
-`search.query.testing.serviceAccountEmail=CHANGE-ME@appspot.gserviceaccount.com`
-
-3. Download p12 public key and specify its location in these properties:
-`search.query.testing.p12KeyFileName=CHANGE-ME.p12`
-`search.query.testing.googleSheetsKeyDir=data/g_sheets/`
-
-4. Create a new google spreadsheet for the data input, add the created above account to it with VIEW access.
-Specify the name of your new spreadsheet in this property:
-`search.query.testing.inputQueriesSheet=query-testing-framework-input`
-
-5. Copy this sheet as an example of the data input into your new spreadsheet: 
-https://docs.google.com/spreadsheets/d/10c9zEo4cBWL_rJAFEqNbpu1vpcTkAwubOOZZAYpRzGE/edit?usp=sharing
-
-6. Create two more spreadsheets for the results summary and details. Assign your created email to these spreadsheets with EDIT access.
-Specify the names in these properties:
-`search.query.testing.sumReportSheet=query-testing-framework-results-sum`
-`search.query.testing.detailReportSheet=query-testing-framework-results-details`
-
-7. The document type explicit field has to be maintained for search filtering.  The field name can be set by this property, it needs to exist in the configuration of the search engine:
-`search.query.testing.docTypeFieldName=query-testing-type`
-
+	https://github.com/Netflix/q/wiki/Setting-up-Google-Spreadsheets
+	https://github.com/Netflix/q/wiki/Setting-up-for-Solr
+	https://github.com/Netflix/q/wiki/Setting-up-for-Elasticsearch
 
 DATA MAINTENANCE
 ----------------
@@ -50,23 +28,13 @@ The deletion of any data was removed from the module by design.  When the datase
 
 BUILDING
 -----------
-
-Query Testing Framework is built via Gradle (http://www.gradle.org). To build from the command line:
- `./gradlew build`
+	
+	https://github.com/Netflix/q/wiki/Building
 
 RUNNING 
 -----------
 
-Run:
-
-Using gradle:
-`./gradlew run -Darchaius.configurationSource.additionalUrls=file:///config-es.properties`
-
-Where -Darchaius.configurationSource.additionalUrls will override the default properties.
-
-When using the artifacts, you can run it like so from a java program:
-
-`new QueryTests().getDataRunTestsUpdateReports();`
+	https://github.com/Netflix/q/wiki/Running
 
 ARTIFACTS
 -----------
