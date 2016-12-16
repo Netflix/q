@@ -238,7 +238,7 @@ public class GoogleSheetsService {
 
         WorksheetEntry worksheet = getWorksheet(spreadsheet, worksheetId);
         if (worksheet != null) {
-            updateWorksheetWithAllItems(worksheet, reportHeader, reportItems, numberOfRows, numberOfColumns);
+            updateWorksheetWithAllItems(worksheet, reportHeader, reportItems, numberOfRows, numberOfColumns, reportSpreadsheetName);
         }
     }
 
@@ -273,7 +273,7 @@ public class GoogleSheetsService {
         }
     }
 
-    private void updateWorksheetWithAllItems(WorksheetEntry worksheet, String[] header, List<ReportItem> reportItems, int numberOfRows, int numberOfColumns)
+    private void updateWorksheetWithAllItems(WorksheetEntry worksheet, String[] header, List<ReportItem> reportItems, int numberOfRows, int numberOfColumns, String reportSpreadsheetName)
             throws BatchInterruptedException, MalformedURLException, IOException, ServiceException
     {
         URL cellFeedUrl = worksheet.getCellFeedUrl();
@@ -289,8 +289,8 @@ public class GoogleSheetsService {
             Link batchLink = cellFeed.getLink(Link.Rel.FEED_BATCH, Link.Type.ATOM);
             CellFeed batchResponse = spreadsheetService.batch(new URL(batchLink.getHref()), batchRequest);
             boolean isSuccess = checkResults(batchResponse);
-            logger.info((isSuccess ? "Batch operations successful: " : "Batch operations failed: ") + worksheet.getTitle().getPlainText());
-            startingRow = startingRow + endingRow;
+            logger.info((isSuccess ? "Batch operations successful: " : "Batch operations failed: ") + reportSpreadsheetName + " " + worksheet.getTitle().getPlainText() + " starting row: " + startingRow +", through row: " + endingRow);
+            startingRow = startingRow + rowsInBatch;
             endingRow = Math.min(numberOfRows, endingRow + rowsInBatch);
         }
     }
