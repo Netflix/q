@@ -209,7 +209,6 @@ public class QueryTestsTest {
 		List<String> languageForTest = queryTests.getLanguageForTest("swedish-video");
 		List<String> languageForTestExpected = Lists.newArrayList();
 		languageForTestExpected.add("sv");
-		languageForTestExpected.add("en");
 		Assert.assertEquals(languageForTest, languageForTestExpected);
 	}
 	
