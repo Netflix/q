@@ -178,6 +178,7 @@ public class QueryTests {
 			searcher = getSearcher();
 			logger.info("Processing: " + testName);
 			indexer.indexData(languages);
+	        languages.add("en");//for search add en fields
 			runTest(testName, languages);
 			logger.info(testName + " took: " + (System.currentTimeMillis() - start) + " ms");
 		}
