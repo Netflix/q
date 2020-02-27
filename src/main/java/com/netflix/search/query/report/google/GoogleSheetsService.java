@@ -290,6 +290,7 @@ public class GoogleSheetsService {
             CellFeed batchResponse = spreadsheetService.batch(new URL(batchLink.getHref()), batchRequest);
             boolean isSuccess = checkResults(batchResponse);
             logger.info((isSuccess ? "Batch operations successful: " : "Batch operations failed: ") + reportSpreadsheetName + " " + worksheet.getTitle().getPlainText() + " starting row: " + startingRow +", through row: " + endingRow);
+            if(endingRow==startingRow) break;
             startingRow = startingRow + rowsInBatch;
             endingRow = Math.min(numberOfRows, endingRow + rowsInBatch);
         }

@@ -74,6 +74,8 @@ public abstract class BaseSearcher {
 		{
 			for (String fieldName : Properties.titleFields.get())
 				addNonDefaultLocaleTitleFieldName(localeList, sb, fieldName);
+			for (String fieldName : Properties.titleAkaFields.get())
+				addNonDefaultLocaleTitleFieldName(localeList, sb, fieldName);
 		}
 		return sb.toString().substring(0, sb.length()).trim();
 	}

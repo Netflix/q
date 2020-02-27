@@ -101,18 +101,22 @@ public abstract class BaseIndexer {
 
         if (local != null && local.length() > 0) {
             for (String language: languages){
-            	for(String fieldName: Properties.titleFields.get())
-            		doc.put(fieldName + "_" + language, addValue(doc, language, fieldName, local));
+            	for(String fieldName: Properties.titleFields.get()) {
+					doc.put(fieldName + "_" + language, addValue(doc, language, fieldName, local));
+					//TODO: bug?
+					if (Properties.languagesRequiringTransliterationFromEnglish.get().contains(language) && fieldName.equals(Properties.transliterationFieldName.get()))
+						doc.put(fieldName + "_" + language, english);
+				}
             }
         }
         if (english != null && english.length() > 0) {
         	for(String fieldName: Properties.titleFields.get())
-        		doc.put(fieldName+"_en", english);
+				doc.put(fieldName + "_en", english);
         }
 		if (altTitle != null && altTitle.length() > 0) {
 			for (String language : languages) {
 				if (Properties.languagesRequiringAdditionalField.get().contains(language))
-					for (String fieldName : Properties.titleFields.get()){
+					for (String fieldName : Properties.titleAkaFields.get()) {
 						doc.put(fieldName + "_" + language, addValue(doc, language, fieldName, altTitle));
 					}
 			}

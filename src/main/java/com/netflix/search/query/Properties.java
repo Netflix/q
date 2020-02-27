@@ -35,6 +35,8 @@ public class Properties {
     public static final DynamicStringListProperty validDataSetsId = new DynamicStringListProperty("search.query.testing.validDataSetsId", "swedish-video");
     public static final DynamicStringListProperty queryCategories = new DynamicStringListProperty("search.query.testing.queryCategories", "regular,misspelled");
     public static final DynamicStringSetProperty languagesRequiringAdditionalField = new DynamicStringSetProperty("search.query.testing.languagesRequiringAdditionalField", "");
+    public static final DynamicStringSetProperty languagesRequiringTransliterationFromEnglish = new DynamicStringSetProperty("search.query.testing.languagesRequiringTransliterationFromEnglish", "");
+    public static final DynamicStringProperty transliterationFieldName = new DynamicStringProperty("search.query.testing.transliterationFieldName", "");
 
     public static final DynamicStringMapProperty languageExpansionBasedOnTestNames = new DynamicStringMapProperty("search.query.testing.languageExpansionBasedOnTestNames", "swedish=sv");
     
@@ -49,7 +51,8 @@ public class Properties {
 
     public static final DynamicStringProperty idField = new DynamicStringProperty("search.query.testing.idField", "id");
     public static final DynamicStringListProperty titleFields = new DynamicStringListProperty("search.query.testing.titleFields", "title");
-    
+    public static final DynamicStringListProperty titleAkaFields = new DynamicStringListProperty("search.query.testing.titleAkaFields", "title_aka");
+
     public static final DynamicStringListProperty requiredNumericFields = new DynamicStringListProperty("search.query.testing.requiredNumericFields", "");
     public static final DynamicStringListProperty requiredStringFields = new DynamicStringListProperty("search.query.testing.requiredStringFields", "");
 
