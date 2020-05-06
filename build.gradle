@@ -3,7 +3,7 @@ buildscript {
 }
 
 plugins {
-    id 'nebula.netflixoss' version '3.3.0'
+    id 'nebula.netflixoss' version '5.1.1'
     id 'nebula.dependency-lock' version '4.3.0'
 }
 
@@ -27,8 +27,8 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.4'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
 	
-    testCompile 'org.testng:testng:6.+'
-    testCompile 'org.mockito:mockito-all:latest.release'
+    testCompile 'org.testng:testng:7.+'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
 }
 
 run {
