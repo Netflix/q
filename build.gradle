@@ -28,7 +28,7 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
 	
     testCompile 'org.testng:testng:7.+'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
 }
 
 run {
