@@ -27,8 +27,8 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.4'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
 	
-    testCompile 'org.testng:testng:6.+'
-    testCompile 'org.mockito:mockito-all:latest.release'
+    testCompile 'org.testng:testng:7.+'
+    testCompile 'org.mockito:mockito-all:1.9.5'
 }
 
 run {

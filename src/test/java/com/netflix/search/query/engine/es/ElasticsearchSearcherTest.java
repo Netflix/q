@@ -34,6 +34,6 @@ public class ElasticsearchSearcherTest {
 		languages.add(LOCALE);
 		ElasticsearchSearcher searcher = new ElasticsearchSearcher();
 		String json = searcher.getJsonForQuery("abc", languages, TEST1);
-		Assert.assertEquals(json, "{\"query\":{\"filtered\":{\"filter\":{\"term\":{\"query_testing_type\":\"test1\"}},\"query\":{\"multi_match\":{\"query\":\"abc\",\"type\":\"best_fields\",\"fields\":[\"title_es\"],\"operator\":\"and\"}}}},\"sort\":{\"id\":{\"order\":\"desc\"}}}");
+		Assert.assertEquals(json, "{\"query\":{\"filtered\":{\"filter\":{\"term\":{\"query_testing_type\":\"test1\"}},\"query\":{\"multi_match\":{\"query\":\"abc\",\"type\":\"best_fields\",\"fields\":[\"title_es\",\"title_aka_es\"],\"operator\":\"and\"}}}},\"sort\":{\"id\":{\"order\":\"desc\"}}}");
 	}
 }
