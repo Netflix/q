@@ -48,7 +48,7 @@ public class QueryTests {
 
     private static final String MAP_VALUE_DELIMITER = "\\|";
 	private static final String SHEET_TAB_NAME_DELIMITER = "-";
-	
+
 	private BaseIndexer indexer = null;
     private BaseSearcher searcher = null;
     private Map<String, Map<String, Set<String>>> queries = Maps.newLinkedHashMap();
@@ -117,12 +117,12 @@ public class QueryTests {
 		this.searcher = searcher;
 	}
 
-	public static void main(String[] args) throws Throwable
+	public static void main(String[] args)
     {
        new QueryTests().getDataRunTestsUpdateReports();
     }
 
-	public void getDataRunTestsUpdateReports() throws Throwable
+	public void getDataRunTestsUpdateReports()
 	{
 		try
 		{
@@ -131,10 +131,11 @@ public class QueryTests {
 			detailReport = getDetailReport();
 			summaryReport = getSummaryReport();
 
+			Report previousSummaryReport = googleDataExtractor.getPreviousSummaryReport();
+			Report previousDetailReport = Report.copyCurrentFileToPreviousAndGetPrevious("details", "details_previous");
+
 			populateAllQueriesFromGoogleSpreadsheets();
 			runAllTests();
-			Report previousSummaryReport = googleDataExtractor.getPreviousSummaryReport();
-			Report previousDetailReport = googleDataExtractor.getPreviousDetailReport();
 
 			detailReport.saveToLocalDisk();
 			logger.info("Generated: " + detailReport);
@@ -153,10 +154,9 @@ public class QueryTests {
 
 			if (!Properties.isLocalTest.get())
 			{
-				googleDataExtractor.publishReportToGoogleSpreadsheet(detailReport);
 				googleDataExtractor.publishReportToGoogleSpreadsheet(summaryReport);
-				googleDataExtractor.publishReportToGoogleSpreadsheet(detailDiffs);
 				googleDataExtractor.publishReportToGoogleSpreadsheet(summaryDiff);
+				googleDataExtractor.publishReportToGoogleSpreadsheet(detailDiffs);
 			}
 			logger.info("All tests took: " + (System.currentTimeMillis() - start) + " ms");
 		} catch (Throwable e)
@@ -165,7 +165,7 @@ public class QueryTests {
 		}
 	}
 
-    private void runAllTests() throws IOException, Throwable, FileNotFoundException, UnsupportedEncodingException
+    private void runAllTests() throws Throwable
     {
 		nextTest: for (String testName : queries.keySet()) {
 			long start = System.currentTimeMillis();
@@ -249,7 +249,7 @@ public class QueryTests {
 
     }
 
-	private static BaseIndexer getIndexer(String testId) throws Throwable {
+	private static BaseIndexer getIndexer(String testId) {
 		String datasetId = getDatasetId(testId);
 		String inputFileName = Properties.dataDir.get() + datasetId + ".tsv";
 		if (new File(inputFileName).exists())

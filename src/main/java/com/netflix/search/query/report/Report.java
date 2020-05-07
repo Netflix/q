@@ -15,15 +15,17 @@
  */
 package com.netflix.search.query.report;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.netflix.search.query.report.detail.DetailReport;
+import com.netflix.search.query.report.detail.DetailReportItem;
+import com.netflix.search.query.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +40,7 @@ public abstract class Report {
     public static final Logger logger = LoggerFactory.getLogger(Report.class);
 
     private static final String ENCODING = "UTF-8";
+    private static final int BUFFER_SIZE = 1 << 16; // 64K
 
     private List<ReportItem> items = Lists.newArrayList();
 
@@ -127,6 +130,38 @@ public abstract class Report {
     {
         String header = getHeaderForFlatFilePrint(HeaderUtils.getHeader(getReportType()));
         printReportToLocalDisk(Properties.dataDir.get() + getReportName(), header, items);
+    }
+
+    public static DetailReport copyCurrentFileToPreviousAndGetPrevious(String currentName, String previousName) throws IOException {
+        File currentFile = new File(Properties.dataDir.get() + currentName);
+        Path currentPath = currentFile.toPath();
+        File previousFile = new File(Properties.dataDir.get() + previousName+".tsv");
+        Path previousPath = previousFile.toPath();
+        Files.copy(currentPath, previousPath, StandardCopyOption.REPLACE_EXISTING);
+
+        DetailReport previousDetailReport = new DetailReport();
+        List<ReportItem> items = Lists.newArrayList();
+
+        InputStream is = new BufferedInputStream(new FileInputStream(previousFile), BUFFER_SIZE);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, ENCODING), BUFFER_SIZE);
+        String lineString = null;
+        while ((lineString = reader.readLine()) != null) {
+            String[] line = lineString.split(Properties.inputDelimiter.get());
+
+            String name = line[0];
+            ResultType failure = ResultType.valueOf(line[1]);
+            String query = line[2];
+            String expected = line[3];
+            String actual = line[4];
+
+            ReportItem reportItem = new DetailReportItem(name, failure, query, expected, actual);
+            items.add(reportItem);
+        }
+        previousDetailReport.setItems(items);
+
+        reader.close();
+        is.close();
+        return previousDetailReport;
     }
 
     private void printReportToLocalDisk(String fileName, String header, List<ReportItem> reportLines) throws Throwable
