@@ -15,11 +15,11 @@
  */
 package com.netflix.search.query.report.google;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 
@@ -81,14 +81,6 @@ public class GoogleDataExtractor {
         writeReportToLocalDisk("summary_previous", previousSummaryReportAsTsv);
         searchGoogleSheetsService.extractReport(previousSummaryReport, false);
         logger.info("Initializing and Downloading: " + previousSummaryReport);
-
-
-        List<String> previousDetailReportAsTsv = searchGoogleSheetsService.getLatestDetailReportAsTsv();
-        writeReportToLocalDisk("details_previous", previousDetailReportAsTsv);
-        searchGoogleSheetsService.extractReport(previousDetailReport, true);
-        logger.info("Initializing and Downloading: " + previousDetailReport);
-
-
     }
 
     private void writeReportToLocalDisk(String sheetId, List<String> titlesWithQueries) throws Throwable
