@@ -1,0 +1,2 @@
+INFO  - 2021-03-03 17:31:21.224 - com.netflix.config.sources.URLConfigurationSource - URLs to be used as dynamic configuration source: [file:/Users/rperezalcolea/Projects/github/netflix/q/build/resources/main/config.properties]
+INFO  - 2021-03-03 17:31:21.245 - com.netflix.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@77a20ea4

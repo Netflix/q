@@ -5,3 +5,6 @@ build/
 *.iws
 *.ipr
 .idea/
+
+# publishing secrets
+secrets/signing-key
