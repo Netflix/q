@@ -135,8 +135,8 @@
             "requested": "latest.release"
         },
         "org.testng:testng": {
-            "locked": "6.9.12",
-            "requested": "6.+"
+            "locked": "7.4.0",
+            "requested": "7.+"
         }
     },
     "testCompileClasspath": {
@@ -165,8 +165,8 @@
             "requested": "latest.release"
         },
         "org.testng:testng": {
-            "locked": "6.9.12",
-            "requested": "6.+"
+            "locked": "7.4.0",
+            "requested": "7.+"
         }
     },
     "testCompileOnly": {
@@ -195,8 +195,8 @@
             "requested": "latest.release"
         },
         "org.testng:testng": {
-            "locked": "6.9.12",
-            "requested": "6.+"
+            "locked": "7.4.0",
+            "requested": "7.+"
         }
     },
     "testRuntime": {
@@ -225,8 +225,8 @@
             "requested": "latest.release"
         },
         "org.testng:testng": {
-            "locked": "6.9.12",
-            "requested": "6.+"
+            "locked": "7.4.0",
+            "requested": "7.+"
         }
     }
 }
