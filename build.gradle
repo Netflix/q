@@ -16,7 +16,7 @@ group = 'com.netflix.search'
 mainClassName = 'com.netflix.search.query.QueryTests'
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
   
 dependencies {
