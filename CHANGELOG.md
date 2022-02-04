@@ -10,3 +10,8 @@
 
   - Changed the ignored tab name to 'Sheet1' (bug fix)
   - Added log4j support  
+
+## 1.0.3 (February 03, 2022)
+
+- JDK9
+- Minor bug fixes
