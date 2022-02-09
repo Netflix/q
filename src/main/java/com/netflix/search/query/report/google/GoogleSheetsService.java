@@ -22,6 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.netflix.search.query.report.detail.DetailReport;
+import com.netflix.search.query.report.detail.DetailReportHeader;
 import com.netflix.search.query.report.summary.SummaryReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -342,6 +343,12 @@ public class GoogleSheetsService {
                     reportRowItem.setValue(headerValue, cellValue);
                 }
                 columnIndex++;
+            }
+            if (isDetailReport) {
+                if (!reportRowItem.getNamedValues().containsKey(DetailReportHeader.expected.toString()))
+                    reportRowItem.setValue(DetailReportHeader.expected.toString(), "");
+                if (!reportRowItem.getNamedValues().containsKey(DetailReportHeader.actual.toString()))
+                    reportRowItem.setValue(DetailReportHeader.actual.toString(), "");
             }
             if (reportRowItem != null)
                 returnValue.add(reportRowItem);

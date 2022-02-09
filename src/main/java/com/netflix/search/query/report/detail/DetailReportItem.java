@@ -38,8 +38,6 @@ public class DetailReportItem extends ReportItem {
 
     public DetailReportItem() {
         super();
-        setValue(DetailReportHeader.expected.toString(), "");
-        setValue(DetailReportHeader.actual.toString(), "");
     }
 
     @Override
