@@ -43,8 +43,7 @@ public class Properties {
     public static final DynamicBooleanProperty isLocalTest = new DynamicBooleanProperty("search.query.testing.isLocalTest",false);
     
     public static final DynamicBooleanProperty isDevOnlyTest = new DynamicBooleanProperty("search.query.testing.isDevOnlyTest",false);
-    public static final DynamicStringProperty devSpreadsheetSuffix = new DynamicStringProperty("search.query.testing.devSpreadsheetSuffix", "-dev");
-    
+
     public static final DynamicStringProperty dataDir = new DynamicStringProperty("search.query.testing.dataDir", "data/q_tests/");
 		
     public static final DynamicBooleanProperty isPrintUrl = new DynamicBooleanProperty("search.query.testing.isPrintUrl",false);
@@ -64,11 +63,12 @@ public class Properties {
     public static final DynamicStringProperty googleAppName = new DynamicStringProperty("search.query.testing.googleAppName", "CHANGE-ME");
     public static final DynamicStringProperty p12KeyFileName = new DynamicStringProperty("search.query.testing.p12KeyFileName", "CHANGE-ME.p12");
     public static final DynamicStringProperty googleSheetsKeyDir = new DynamicStringProperty("search.query.testing.googleSheetsKeyDir", "data/g_sheets");
-    public static final DynamicStringListProperty googleSheetsScopes = new DynamicStringListProperty("search.query.testing.googleSheetsScopes", "https://spreadsheets.google.com/feeds,https://docs.google.com/feeds");
-    public static final DynamicIntProperty googleSheetsBatchUploadSizeSplitFactor = new DynamicIntProperty("search.query.testing.googleSheetsBatchUploadSizeSplitFactor", 2);
+    public static final DynamicIntProperty googleApiThrottlePause = new DynamicIntProperty("search.query.testing.googleApiThrottlePause", 1500);
 
     public static final DynamicStringProperty inputQueriesSheet = new DynamicStringProperty("search.query.testing.inputQueriesSheet", "query-testing-framework-input");
     public static final DynamicStringProperty sumReportSheet = new DynamicStringProperty("search.query.testing.sumReportSheet", "query-testing-framework-results-sum");
     public static final DynamicStringProperty detailReportSheet = new DynamicStringProperty("search.query.testing.detailReportSheet", "query-testing-framework-results-details");
+    public static final DynamicStringProperty sumReportSheetDev = new DynamicStringProperty("search.query.testing.sumReportSheetDev", "query-testing-framework-results-sum-dev");
+    public static final DynamicStringProperty detailReportSheetDev = new DynamicStringProperty("search.query.testing.detailReportSheetDev", "query-testing-framework-results-details-dev");
     
 }

@@ -54,7 +54,7 @@ public abstract class ReportItem {
 
     public void setValue(String headerValue, String value)
     {
-        if (value != null && !value.isEmpty()) {
+        if (value != null) {
             namedValues.put(headerValue, value);
             appendKeyFromNamedValues(headerValue, value);
         }
