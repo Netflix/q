@@ -13,5 +13,8 @@
 
 ## 1.0.3 (February 03, 2022)
 
-- JDK9
-- Minor bug fixes
+  - Minor bug fixes
+
+## 1.0.4 (February 09, 2022)
+
+  - Google API v4
