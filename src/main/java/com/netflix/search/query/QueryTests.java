@@ -132,7 +132,7 @@ public class QueryTests {
 			summaryReport = getSummaryReport();
 
 			Report previousSummaryReport = googleDataExtractor.getPreviousSummaryReport();
-			Report previousDetailReport = Report.copyCurrentFileToPreviousAndGetPrevious("details", "details_previous");
+			Report previousDetailReport = googleDataExtractor.getPreviousDetailReport();
 
 			populateAllQueriesFromGoogleSpreadsheets();
 			runAllTests();
@@ -156,6 +156,7 @@ public class QueryTests {
 			{
 				googleDataExtractor.publishReportToGoogleSpreadsheet(summaryReport);
 				googleDataExtractor.publishReportToGoogleSpreadsheet(summaryDiff);
+				googleDataExtractor.publishReportToGoogleSpreadsheet(detailReport);
 				googleDataExtractor.publishReportToGoogleSpreadsheet(detailDiffs);
 			}
 			logger.info("All tests took: " + (System.currentTimeMillis() - start) + " ms");
