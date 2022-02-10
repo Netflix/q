@@ -18,3 +18,7 @@
 ## 1.0.4 (February 09, 2022)
 
   - Google API v4
+
+## 1.0.6 (February 10, 2022)
+
+- Decoupling the indexer from the title-to-id reader. Decoupling the initialization to allow a download of the test queries without running a test. 
