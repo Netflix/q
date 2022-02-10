@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.netflix.search.query.utils.StringUtils;
+import com.netflix.search.query.utils.TitleIdUtils;
 import org.mockito.Mockito;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -38,6 +40,8 @@ import com.netflix.search.query.report.google.GoogleDataExtractor;
 import com.netflix.search.query.report.summary.SummaryReport;
 import com.netflix.search.query.report.summary.SummaryReportHeader;
 import com.netflix.search.query.report.summary.SummaryReportItem;
+
+import static org.mockito.ArgumentMatchers.anyString;
 
 public class QueryTestsTest {
 	
@@ -67,14 +71,17 @@ public class QueryTestsTest {
 	Map<String, ReportItem> expectedSummaryItems;
 	Map<String, ReportItem> expectedDetailItems;
 	Map<ResultType, Integer> countersForExpectedReport;
-	
+	TitleIdUtils titleIdUtils;
+
+
 	@BeforeMethod
 	public void setup() throws Throwable{
 		solrIndexerMock = Mockito.mock(SolrIndexer.class);
 		solrSearchMock = Mockito.mock(SolrSearcher.class);
 		googleDataExtractor = Mockito.mock(GoogleDataExtractor.class);
+		titleIdUtils = Mockito.mock(TitleIdUtils.class);
 		
-		queryTests = new QueryTests();
+		queryTests = new QueryTests(titleIdUtils);
 
         Mockito.doNothing().when(googleDataExtractor).initExtractor();
 		
@@ -117,7 +124,7 @@ public class QueryTestsTest {
 		expectedDetailItems = Maps.newHashMap();
 		countersForExpectedReport = Maps.newHashMap();
 		
-        Mockito.when(solrIndexerMock.getTitleToIds()).thenReturn(titleIdToName);
+        Mockito.when(titleIdUtils.getTitleToIds(anyString(), anyString())).thenReturn(titleIdToName);
         Mockito.when(solrSearchMock.getResults(Q1, languages, TEST1)).thenReturn(hits);
 	}
 	
@@ -206,7 +213,7 @@ public class QueryTestsTest {
 	
 	@Test
 	public void getLanguage(){
-		List<String> languageForTest = queryTests.getLanguageForTest("swedish-video");
+		List<String> languageForTest = StringUtils.getLanguageForTest("swedish-video");
 		List<String> languageForTestExpected = Lists.newArrayList();
 		languageForTestExpected.add("sv");
 		Assert.assertEquals(languageForTest, languageForTestExpected);

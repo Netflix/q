@@ -60,7 +60,7 @@ public class QueriesTest {
 
 		Mockito.when(titleExtractor.getTitlesWithQueriesPerDataset()).thenReturn(mapOfQueriesToTitles);
 
-		Queries queries = new Queries(DATASET_ID, TEST1, titleExtractor);
+		Queries queries = new Queries(DATASET_ID, TEST1, titleExtractor.getTitlesWithQueriesPerDataset());
 		queries.populateFromGoogleSpreadsheets();
 
 		Map<String, Set<String>> queryToIdMap = queries.getQueryToIdMap();

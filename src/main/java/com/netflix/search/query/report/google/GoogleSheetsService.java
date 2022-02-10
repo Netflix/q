@@ -79,15 +79,18 @@ public class GoogleSheetsService {
     public GoogleSheetsService() {
         super();
         try {
-            this.summaryReportName = Properties.sumReportSheet.get();
-            this.detailReportName = Properties.detailReportSheet.get();
-            if (Properties.isDevOnlyTest.get()) {
-                this.summaryReportName = Properties.sumReportSheetDev.get();
-                this.detailReportName = Properties.detailReportSheetDev.get();
-            }
             initSpreadsheetService();
         } catch (Throwable e) {
             logger.error("Error trying to init the GoogleSheetsService", e);
+        }
+    }
+
+    public void setUpReportNames() {
+        this.summaryReportName = Properties.sumReportSheet.get();
+        this.detailReportName = Properties.detailReportSheet.get();
+        if (Properties.isDevOnlyTest.get()) {
+            this.summaryReportName = Properties.sumReportSheetDev.get();
+            this.detailReportName = Properties.detailReportSheetDev.get();
         }
     }
 

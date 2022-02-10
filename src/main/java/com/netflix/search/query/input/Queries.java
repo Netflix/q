@@ -26,18 +26,17 @@ public class Queries {
     private Map<String, Set<String>> queryToIdMap = Maps.newHashMap();
     private String datasetId;
     private String queryCategory;
-    private GoogleDataExtractor titleExtractor;
+    private Map<String, Map<Integer, TitleWithQueries>> titlesWithQueriesPerDataset;
 
-    public Queries(String datasetId, String queryCategory, GoogleDataExtractor titleExtractor) {
+    public Queries(String datasetId, String queryCategory, Map<String, Map<Integer, TitleWithQueries>> titlesWithQueriesPerDataset) {
         this.queryToIdMap = Maps.newHashMap();
         this.datasetId = datasetId;
         this.queryCategory = queryCategory;
-        this.titleExtractor = titleExtractor;
+        this.titlesWithQueriesPerDataset = titlesWithQueriesPerDataset;
     }
 
     public void populateFromGoogleSpreadsheets()
     {
-        Map<String, Map<Integer, TitleWithQueries>> titlesWithQueriesPerDataset = titleExtractor.getTitlesWithQueriesPerDataset();
         Map<Integer, TitleWithQueries> titlesWithQueries = titlesWithQueriesPerDataset.get(datasetId);
         if (titlesWithQueries != null)
             for (Integer row : titlesWithQueries.keySet()) {
