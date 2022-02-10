@@ -42,11 +42,7 @@ public class GoogleDataExtractor {
     private GoogleSheetsService searchGoogleSheetsService = null;
 
     public GoogleDataExtractor() {
-        try {
-            initExtractor();
-        } catch (Throwable e) {
-            logger.error("Error trying to init the GoogleDataExtractor", e);
-        }
+        super();
     }
 
     public Map<String, Map<Integer, TitleWithQueries>> getTitlesWithQueriesPerDataset() {
@@ -65,8 +61,12 @@ public class GoogleDataExtractor {
         GoogleDataExtractor s = new GoogleDataExtractor();
     }
 
-    public void initExtractor() throws Throwable {
+    public void initExtractor() {
         searchGoogleSheetsService = new GoogleSheetsService();
+    }
+
+    public void setReportNamesAndDownloadData() throws Throwable {
+        searchGoogleSheetsService.setUpReportNames();
         downloadQueries();
         downloadReports();
     }

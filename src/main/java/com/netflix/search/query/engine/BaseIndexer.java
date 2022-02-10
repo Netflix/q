@@ -18,11 +18,9 @@ package com.netflix.search.query.engine;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.netflix.search.query.Properties;
 import com.netflix.search.query.utils.StringUtils;
@@ -199,20 +196,5 @@ public abstract class BaseIndexer {
 	public abstract String getUrlForAddingDoc(Map<String, Object> doc);
 	public abstract String getUrlForCommitting();
 
-    public Map<String, String> getTitleToIds() throws FileNotFoundException, UnsupportedEncodingException, IOException
-    {
-        Map<String, String> titleIdToName = Maps.newHashMap();
 
-        InputStream is = new BufferedInputStream(new FileInputStream(inputFileName), BUFFER_SIZE);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is, ENCODING), BUFFER_SIZE);
-        String lineString = null;
-        while ((lineString = reader.readLine()) != null) {
-			String[] line = lineString.split(Properties.inputDelimiter.get());
-			String id = line[0];
-			titleIdToName.put(StringUtils.createIdUsingTestName(id, testName), line[2]);
-        }
-        reader.close();
-        is.close();
-        return titleIdToName;
-    }
 }
