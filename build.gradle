@@ -1,10 +1,6 @@
-buildscript {
-    repositories { jcenter() }
-}
-
 plugins {
-    id 'nebula.netflixoss' version '9.1.0'
-    id 'nebula.dependency-lock' version '11.1.2'
+    id 'com.netflix.nebula.netflixoss' version '11.5.0'
+    id 'com.netflix.nebula.dependency-lock' version '15.1.0'
 }
 
 apply plugin: 'java'
@@ -20,17 +16,17 @@ repositories {
 }
   
 dependencies {
-    compile 'com.google.apis:google-api-services-sheets:v4-rev531-1.23.0'
-    compile 'com.google.apis:google-api-services-drive:v3-rev124-1.23.0'
+    implementation 'com.google.apis:google-api-services-sheets:v4-rev531-1.23.0'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev124-1.23.0'
 
-    compile group: 'com.netflix.archaius', name: 'archaius-core', version: '0.7.4'
-    compile group: 'com.sun.jersey', name: 'jersey-client', version: '1.8'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.4'
-    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
-	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.3'
+    implementation group: 'com.netflix.archaius', name: 'archaius-core', version: '0.7.4'
+    implementation group: 'com.sun.jersey', name: 'jersey-client', version: '1.8'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.4'
+    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.3'
 
-    testCompile 'org.testng:testng:7.+'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
+    testImplementation 'org.testng:testng:7.4.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
 }
 
 run {

@@ -1,232 +1,106 @@
 {
-    "compile": {
-        "com.fasterxml.jackson.core:jackson-core": {
-            "locked": "2.7.4",
-            "requested": "2.7.4"
-        },
-        "com.google.api-client:google-api-client": {
-            "locked": "1.22.0",
-            "requested": "latest.release"
-        },
-        "com.google.gdata:core": {
-            "locked": "1.47.1",
-            "requested": "1.47.1"
-        },
-        "com.netflix.archaius:archaius-core": {
-            "locked": "0.7.4",
-            "requested": "0.7.4"
-        },
-        "com.sun.jersey:jersey-client": {
-            "locked": "1.8",
-            "requested": "1.8"
-        }
-    },
     "compileClasspath": {
         "com.fasterxml.jackson.core:jackson-core": {
-            "locked": "2.7.4",
-            "requested": "2.7.4"
+            "locked": "2.7.4"
         },
-        "com.google.api-client:google-api-client": {
-            "locked": "1.22.0",
-            "requested": "latest.release"
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "locked": "2.4.3"
         },
-        "com.google.gdata:core": {
-            "locked": "1.47.1",
-            "requested": "1.47.1"
+        "com.google.apis:google-api-services-drive": {
+            "locked": "v3-rev124-1.23.0"
+        },
+        "com.google.apis:google-api-services-sheets": {
+            "locked": "v4-rev531-1.23.0"
         },
         "com.netflix.archaius:archaius-core": {
-            "locked": "0.7.4",
-            "requested": "0.7.4"
+            "locked": "0.7.4"
         },
         "com.sun.jersey:jersey-client": {
-            "locked": "1.8",
-            "requested": "1.8"
+            "locked": "1.8"
+        },
+        "org.slf4j:slf4j-log4j12": {
+            "locked": "1.7.21"
         }
     },
-    "compileOnly": {
+    "runtimeClasspath": {
         "com.fasterxml.jackson.core:jackson-core": {
-            "locked": "2.7.4",
-            "requested": "2.7.4"
+            "locked": "2.7.4"
         },
-        "com.google.api-client:google-api-client": {
-            "locked": "1.22.0",
-            "requested": "latest.release"
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "locked": "2.4.3"
         },
-        "com.google.gdata:core": {
-            "locked": "1.47.1",
-            "requested": "1.47.1"
+        "com.google.apis:google-api-services-drive": {
+            "locked": "v3-rev124-1.23.0"
+        },
+        "com.google.apis:google-api-services-sheets": {
+            "locked": "v4-rev531-1.23.0"
         },
         "com.netflix.archaius:archaius-core": {
-            "locked": "0.7.4",
-            "requested": "0.7.4"
+            "locked": "0.7.4"
         },
         "com.sun.jersey:jersey-client": {
-            "locked": "1.8",
-            "requested": "1.8"
-        }
-    },
-    "default": {
-        "com.fasterxml.jackson.core:jackson-core": {
-            "locked": "2.7.4",
-            "requested": "2.7.4"
+            "locked": "1.8"
         },
-        "com.google.api-client:google-api-client": {
-            "locked": "1.22.0",
-            "requested": "latest.release"
-        },
-        "com.google.gdata:core": {
-            "locked": "1.47.1",
-            "requested": "1.47.1"
-        },
-        "com.netflix.archaius:archaius-core": {
-            "locked": "0.7.4",
-            "requested": "0.7.4"
-        },
-        "com.sun.jersey:jersey-client": {
-            "locked": "1.8",
-            "requested": "1.8"
-        }
-    },
-    "runtime": {
-        "com.fasterxml.jackson.core:jackson-core": {
-            "locked": "2.7.4",
-            "requested": "2.7.4"
-        },
-        "com.google.api-client:google-api-client": {
-            "locked": "1.22.0",
-            "requested": "latest.release"
-        },
-        "com.google.gdata:core": {
-            "locked": "1.47.1",
-            "requested": "1.47.1"
-        },
-        "com.netflix.archaius:archaius-core": {
-            "locked": "0.7.4",
-            "requested": "0.7.4"
-        },
-        "com.sun.jersey:jersey-client": {
-            "locked": "1.8",
-            "requested": "1.8"
-        }
-    },
-    "testCompile": {
-        "com.fasterxml.jackson.core:jackson-core": {
-            "locked": "2.7.4",
-            "requested": "2.7.4"
-        },
-        "com.google.api-client:google-api-client": {
-            "locked": "1.22.0",
-            "requested": "latest.release"
-        },
-        "com.google.gdata:core": {
-            "locked": "1.47.1",
-            "requested": "1.47.1"
-        },
-        "com.netflix.archaius:archaius-core": {
-            "locked": "0.7.4",
-            "requested": "0.7.4"
-        },
-        "com.sun.jersey:jersey-client": {
-            "locked": "1.8",
-            "requested": "1.8"
-        },
-        "org.mockito:mockito-all": {
-            "locked": "2.0.2-beta",
-            "requested": "latest.release"
-        },
-        "org.testng:testng": {
-            "locked": "7.4.0",
-            "requested": "7.+"
+        "org.slf4j:slf4j-log4j12": {
+            "locked": "1.7.21"
         }
     },
     "testCompileClasspath": {
         "com.fasterxml.jackson.core:jackson-core": {
-            "locked": "2.7.4",
-            "requested": "2.7.4"
+            "locked": "2.7.4"
         },
-        "com.google.api-client:google-api-client": {
-            "locked": "1.22.0",
-            "requested": "latest.release"
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "locked": "2.4.3"
         },
-        "com.google.gdata:core": {
-            "locked": "1.47.1",
-            "requested": "1.47.1"
+        "com.google.apis:google-api-services-drive": {
+            "locked": "v3-rev124-1.23.0"
+        },
+        "com.google.apis:google-api-services-sheets": {
+            "locked": "v4-rev531-1.23.0"
         },
         "com.netflix.archaius:archaius-core": {
-            "locked": "0.7.4",
-            "requested": "0.7.4"
+            "locked": "0.7.4"
         },
         "com.sun.jersey:jersey-client": {
-            "locked": "1.8",
-            "requested": "1.8"
+            "locked": "1.8"
         },
-        "org.mockito:mockito-all": {
-            "locked": "2.0.2-beta",
-            "requested": "latest.release"
+        "org.mockito:mockito-core": {
+            "locked": "3.3.3"
+        },
+        "org.slf4j:slf4j-log4j12": {
+            "locked": "1.7.21"
         },
         "org.testng:testng": {
-            "locked": "7.4.0",
-            "requested": "7.+"
+            "locked": "7.4.0"
         }
     },
-    "testCompileOnly": {
+    "testRuntimeClasspath": {
         "com.fasterxml.jackson.core:jackson-core": {
-            "locked": "2.7.4",
-            "requested": "2.7.4"
+            "locked": "2.7.4"
         },
-        "com.google.api-client:google-api-client": {
-            "locked": "1.22.0",
-            "requested": "latest.release"
+        "com.fasterxml.jackson.core:jackson-databind": {
+            "locked": "2.4.3"
         },
-        "com.google.gdata:core": {
-            "locked": "1.47.1",
-            "requested": "1.47.1"
+        "com.google.apis:google-api-services-drive": {
+            "locked": "v3-rev124-1.23.0"
+        },
+        "com.google.apis:google-api-services-sheets": {
+            "locked": "v4-rev531-1.23.0"
         },
         "com.netflix.archaius:archaius-core": {
-            "locked": "0.7.4",
-            "requested": "0.7.4"
+            "locked": "0.7.4"
         },
         "com.sun.jersey:jersey-client": {
-            "locked": "1.8",
-            "requested": "1.8"
+            "locked": "1.8"
         },
-        "org.mockito:mockito-all": {
-            "locked": "2.0.2-beta",
-            "requested": "latest.release"
+        "org.mockito:mockito-core": {
+            "locked": "3.3.3"
         },
-        "org.testng:testng": {
-            "locked": "7.4.0",
-            "requested": "7.+"
-        }
-    },
-    "testRuntime": {
-        "com.fasterxml.jackson.core:jackson-core": {
-            "locked": "2.7.4",
-            "requested": "2.7.4"
-        },
-        "com.google.api-client:google-api-client": {
-            "locked": "1.22.0",
-            "requested": "latest.release"
-        },
-        "com.google.gdata:core": {
-            "locked": "1.47.1",
-            "requested": "1.47.1"
-        },
-        "com.netflix.archaius:archaius-core": {
-            "locked": "0.7.4",
-            "requested": "0.7.4"
-        },
-        "com.sun.jersey:jersey-client": {
-            "locked": "1.8",
-            "requested": "1.8"
-        },
-        "org.mockito:mockito-all": {
-            "locked": "2.0.2-beta",
-            "requested": "latest.release"
+        "org.slf4j:slf4j-log4j12": {
+            "locked": "1.7.21"
         },
         "org.testng:testng": {
-            "locked": "7.4.0",
-            "requested": "7.+"
+            "locked": "7.4.0"
         }
     }
 }
