@@ -15,12 +15,13 @@
  */
 package com.netflix.search.query.engine.es;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 
 public class ElasticsearchSearcherTest {
@@ -28,12 +29,17 @@ public class ElasticsearchSearcherTest {
 	private static final String TEST1 = "test1";
 
 	@Test
-	void emptyReportsTest() throws JsonProcessingException
+	void emptyReportsTest() throws IOException
 	{
 		List<String> languages = Lists.newArrayList();
 		languages.add(LOCALE);
 		ElasticsearchSearcher searcher = new ElasticsearchSearcher();
 		String json = searcher.getJsonForQuery("abc", languages, TEST1);
-		Assert.assertEquals(json, "{\"query\":{\"filtered\":{\"filter\":{\"term\":{\"query_testing_type\":\"test1\"}},\"query\":{\"multi_match\":{\"query\":\"abc\",\"type\":\"best_fields\",\"fields\":[\"title_es\",\"title_aka_es\"],\"operator\":\"and\"}}}},\"sort\":{\"id\":{\"order\":\"desc\"}}}");
+
+		// OpenSearch/ES 7+ typeless phrase query: bool with a multi_match (phrase, slop=10) and a term filter on the dataset.
+		// Compared as parsed JSON because the query is built from HashMaps whose key serialization order is not stable.
+		String expected = "{\"query\":{\"bool\":{\"must\":[{\"multi_match\":{\"query\":\"abc\",\"type\":\"phrase\",\"slop\":10,\"fields\":[\"title_es\",\"title_aka_es\"]}}],\"filter\":[{\"term\":{\"query_testing_type\":\"test1\"}}]}},\"size\":100000,\"_source\":false}";
+		ObjectMapper mapper = new ObjectMapper();
+		Assert.assertEquals(mapper.readTree(json), mapper.readTree(expected));
 	}
 }
