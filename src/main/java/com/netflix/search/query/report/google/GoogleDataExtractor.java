@@ -23,6 +23,7 @@ import com.netflix.search.query.utils.HeaderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.netflix.search.query.Properties;
 import com.netflix.search.query.input.TitleWithQueries;
@@ -68,23 +69,46 @@ public class GoogleDataExtractor {
     public void setReportNamesAndDownloadData() throws Throwable {
         searchGoogleSheetsService.setUpReportNames();
         downloadQueries();
-        downloadReports();
+        if (!Properties.useLocalData.get())
+            downloadReports();
     }
 
     public void downloadQueries() throws Throwable {
         for (String sheetId : Properties.validDataSetsId.get()) {
             logger.info("Initializing and Downloading: " + sheetId);
-            List<List<Object>> spreadsheetData = searchGoogleSheetsService.getSpreadsheetDataForQueries(sheetId);
+            List<List<Object>> spreadsheetData = Properties.useLocalData.get() ? readLocalQueries(sheetId) : searchGoogleSheetsService.getSpreadsheetDataForQueries(sheetId);
             if (spreadsheetData != null && spreadsheetData.size() != 0) {
                 Map<Integer, TitleWithQueries> titlesWithQueries = searchGoogleSheetsService.getTitlesWithQueries(spreadsheetData, sheetId);
                 titlesWithQueriesPerDataset.put(sheetId, titlesWithQueries);
-                List<String> titlesWithQueriesAsTsv = searchGoogleSheetsService.extractWorksheetData(spreadsheetData, null);
-                writeReportToLocalDisk(sheetId, titlesWithQueriesAsTsv);
+                if (!Properties.useLocalData.get()) {
+                    List<String> titlesWithQueriesAsTsv = searchGoogleSheetsService.extractWorksheetData(spreadsheetData, null);
+                    writeReportToLocalDisk(sheetId, titlesWithQueriesAsTsv);
+                }
             } else {
                 logger.info("Sheet doesn't exist or it is empty: " + sheetId);
             }
-            if (Properties.googleApiThrottlePause.get() > 0) Thread.sleep(Properties.googleApiThrottlePause.get());
+            if (!Properties.useLocalData.get() && Properties.googleApiThrottlePause.get() > 0) Thread.sleep(Properties.googleApiThrottlePause.get());
         }
+    }
+
+    /** Rebuilds the sheet values (rows of cells, trailing empty cells dropped like the Sheets API does) from the local TSV. */
+    private List<List<Object>> readLocalQueries(String sheetId) throws Throwable {
+        File file = new File(Properties.dataDir.get() + sheetId + ".tsv");
+        if (!file.exists())
+            return null;
+        List<List<Object>> values = Lists.newArrayList();
+        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(file), ENCODING))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                List<Object> cells = Lists.newArrayList();
+                for (String cell : line.split(Properties.inputDelimiter.get(), -1))
+                    cells.add(cell);
+                while (!cells.isEmpty() && cells.get(cells.size() - 1).toString().isEmpty())
+                    cells.remove(cells.size() - 1);
+                values.add(cells);
+            }
+        }
+        return values;
     }
 
     public void downloadReports() throws Throwable {

@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.Lists;
@@ -95,7 +94,8 @@ public class GoogleSheetsService {
     }
 
     private void initSpreadsheetService() throws Throwable {
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        // JVM default trust (honors -Djavax.net.ssl.trustStore), not the google.jks bundled in google-api-client
+        final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
         spreadsheetService = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT)).setApplicationName(Properties.googleAppName.get()).build();
 
     }

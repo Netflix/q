@@ -180,7 +180,7 @@ public class QueryTests {
     private BaseSearcher getSearcher() {
         if (Properties.engineType.get().equalsIgnoreCase("solr"))
             return new SolrSearcher();
-        else if (Properties.engineType.get().equalsIgnoreCase("es"))
+        else if ((Properties.engineType.get().equalsIgnoreCase("es") || Properties.engineType.get().equalsIgnoreCase("opensearch")))
             return new ElasticsearchSearcher();
         else {
             logger.error("No support for the engine type: " + Properties.engineType.get());
@@ -233,7 +233,7 @@ public class QueryTests {
         if (new File(inputFileName).exists())
             if (Properties.engineType.get().equalsIgnoreCase("solr"))
                 return new SolrIndexer(inputFileName, datasetId);
-            else if (Properties.engineType.get().equalsIgnoreCase("es"))
+            else if ((Properties.engineType.get().equalsIgnoreCase("es") || Properties.engineType.get().equalsIgnoreCase("opensearch")))
                 return new ElasticsearchIndexer(inputFileName, datasetId);
             else {
                 logger.error("No support for the engine type: " + Properties.engineType.get());
