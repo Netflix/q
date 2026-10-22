@@ -15,6 +15,8 @@
  */
 package com.netflix.search.query.engine.es;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -27,16 +29,29 @@ public class ElasticsearchIndexer extends BaseIndexer {
         super(inputFileName, testName);
     }
 
+	// OpenSearch 3.x / Elasticsearch 7+: no mapping types, index/_doc/{id}; refresh makes docs searchable
+	@Override
+	public String getServerUrl()
+	{
+		return "http://" + Properties.engineHost.get() + ":" + Properties.enginePort.get() + "/" + Properties.engineIndexName.get();
+	}
+
 	@Override
 	public String getUrlForAddingDoc(Map<String, Object> doc)
 	{
-		return getServerUrl()+"/"+Properties.esDocType.get()+"/" + doc.get("id").toString();
+		try
+		{
+			return getServerUrl() + "/_doc/" + URLEncoder.encode(doc.get("id").toString(), "UTF-8");
+		} catch (UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public String getUrlForCommitting()
 	{
-		return getServerUrl()+"/_flush";
+		return getServerUrl() + "/_refresh";
 	}
     
 	@Override

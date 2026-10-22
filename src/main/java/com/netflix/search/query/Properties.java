@@ -40,6 +40,8 @@ public class Properties {
 
     public static final DynamicStringMapProperty languageExpansionBasedOnTestNames = new DynamicStringMapProperty("search.query.testing.languageExpansionBasedOnTestNames", "swedish=sv");
     
+    /** Read the per-dataset query TSVs already present in dataDir instead of downloading from Google Sheets (offline/fast iteration). */
+    public static final DynamicBooleanProperty useLocalData = new DynamicBooleanProperty("search.query.testing.useLocalData",false);
     public static final DynamicBooleanProperty isLocalTest = new DynamicBooleanProperty("search.query.testing.isLocalTest",false);
     
     public static final DynamicBooleanProperty isDevOnlyTest = new DynamicBooleanProperty("search.query.testing.isDevOnlyTest",false);
