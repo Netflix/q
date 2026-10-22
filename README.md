@@ -15,13 +15,15 @@ https://github.com/Netflix/q/wiki
 SETUP
 -----------
 
-To set up the google spreadsheets dataset, as well as the instructions for Solr and Elasticsearch setup/configurations see this document:
+To set up the google spreadsheets dataset, as well as the instructions for Solr, Elasticsearch, and OpenSearch setup/configurations see this document:
 
 https://github.com/Netflix/q/wiki/Setting-up-Google-Spreadsheets
 
 https://github.com/Netflix/q/wiki/Setting-up-for-Solr
 
 https://github.com/Netflix/q/wiki/Setting-up-for-Elasticsearch
+
+OpenSearch 3.x (and Elasticsearch 7+) is supported via the Elasticsearch configuration above with `-Dsearch.query.testing.engineType=opensearch`.
 
 DATA MAINTENANCE
 ----------------
